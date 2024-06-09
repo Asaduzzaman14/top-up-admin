@@ -6,10 +6,9 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 import OrderUpdateModal from './OrderUpdateModal';
 
-
-type IOrder = {
+export type IOrder = {
   _id: string;
-  userId:  string;
+  userId: string;
   productName: string;
   img: string;
   price: string;
@@ -17,7 +16,7 @@ type IOrder = {
   playerId: string;
   orderNumber: number;
   status: boolean;
-}
+};
 
 const Orders = () => {
   const [datas, setDatas] = useState<IOrder[]>([]);
@@ -105,7 +104,6 @@ const Orders = () => {
     });
   };
 
-
   return (
     <DefaultLayout>
       <Breadcrumb pageName="Orders" />
@@ -182,8 +180,8 @@ const Orders = () => {
                   </td>
 
                   <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                    <p className="text-black dark:text-white">
-                      {packageItem?.status == false ? 'Pending' : 'Delevard'}
+                    <p className="text-black uppercase dark:text-white">
+                      {packageItem?.status}
                     </p>
                   </td>
 
@@ -246,7 +244,6 @@ const Orders = () => {
                       {/* edit btn */}
                       <button
                         onClick={() => openModal(packageItem)}
-
                         className="hover:text-primary"
                       >
                         <svg

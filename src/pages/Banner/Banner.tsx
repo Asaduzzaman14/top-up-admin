@@ -12,7 +12,7 @@ export type IBanner = {
 const Banner = () => {
   const [datas, setDatas] = useState<IBanner[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
-   const [updateItem, setUpdateItem] = useState<IBanner>();
+  const [updateItem, setUpdateItem] = useState<IBanner>();
 
   const openModal = (data: IBanner) => {
     setUpdateItem(data);
@@ -32,7 +32,6 @@ const Banner = () => {
           'Content-Type': 'application/json',
         },
       });
-      console.log(response.data);
 
       if (response?.data?.success) {
         setDatas(response?.data?.data);
@@ -45,7 +44,8 @@ const Banner = () => {
   useEffect(() => {
     fetchData();
   }, []);
-  console.log(datas);
+
+  const deleteBanner = (d: any) => {};
 
   return (
     <DefaultLayout>
@@ -68,28 +68,26 @@ const Banner = () => {
               </tr>
             </thead>
             <tbody>
-              {datas?.map((packageItem: any, key: any) => (
+              {datas?.map((data: any, key: any) => (
                 <tr key={key}>
                   <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
                     <h5 className="font-medium text-black dark:text-white">
                       {key + 1}
                     </h5>
                   </td>
-
                   <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                     <img
                       className="w-20 h-20 rounded-sm"
-                      src={packageItem.img}
+                      src={data.img}
                       alt=""
                     />
                   </td>
-
                   <td className="border-b border-[#eee] py-5 px-3 dark:border-strokedark">
                     <div className="flex items-center space-x-3.5">
                       {/* details btn */}
 
                       <button
-                        // onClick={() => deleteServices(product?._id)}
+                        onClick={() => deleteBanner(data?._id)}
                         className="hover:text-primary"
                       >
                         <svg
@@ -120,7 +118,7 @@ const Banner = () => {
                       </button>
                       {/* edit btn */}
                       <button
-                        onClick={() => openModal(packageItem)}
+                        onClick={() => openModal(data)}
                         className="hover:text-primary"
                       >
                         <svg

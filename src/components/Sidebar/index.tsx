@@ -179,7 +179,8 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                 <NavLink
                   to="/all-users"
                   className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                    pathname.includes('all-users') && 'bg-graydark dark:bg-meta-4'
+                    pathname.includes('all-users') &&
+                    'bg-graydark dark:bg-meta-4'
                   }`}
                 >
                   <MdAddTask className="text-2xl" />
@@ -215,13 +216,12 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                   Orders
                 </NavLink>
               </li>
-              
+
               <li>
                 <NavLink
                   to="/banner"
                   className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                    pathname.includes('all-orders') &&
-                    'bg-graydark dark:bg-meta-4'
+                    pathname.includes('banner') && 'bg-graydark dark:bg-meta-4'
                   }`}
                 >
                   <svg
@@ -241,13 +241,11 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                       fill=""
                     />
                   </svg>
-                  
                   Banners
                 </NavLink>
               </li>
 
-
-              <li>
+              {/* <li>
                 <NavLink
                   to="/deposits"
                   className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
@@ -274,7 +272,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                   </svg>
                   Deposits
                 </NavLink>
-              </li>
+              </li> */}
 
               {/* <li>
                 <NavLink

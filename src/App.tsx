@@ -124,9 +124,6 @@ function App() {
               </>
             }
           />
-
-          
-
           <Route
             path="/profile"
             element={

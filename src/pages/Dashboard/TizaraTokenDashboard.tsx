@@ -3,23 +3,24 @@ import CardDataStats from '../../components/CardDataStats';
 import DefaultLayout from '../../layout/DefaultLayout';
 import UserIcon from '../../assets/icon/UserIcon';
 import { Link } from 'react-router-dom';
- import { PiPackage } from 'react-icons/pi';
+import { PiPackage } from 'react-icons/pi';
 import axios from 'axios';
 import { getTopUpToken } from '../../hooks/handelAdminToken';
- 
+
 const BizTokenDashboard: React.FC = () => {
   const [datas, setDatas] = useState<any>([]);
+  const [catagorys, setCatagorys] = useState<any>([]);
   const [users, setUsers] = useState<any>([]);
   const [services, setServices] = useState<any>([]);
   const [loding, setLoading] = useState<boolean>(false);
 
   const token = getTopUpToken();
- 
+
   const fetchData = async () => {
     setLoading(true);
     try {
       const response = await axios.get(
-        'http://localhost:5000/api/v1/categorys',
+        'http://localhost:5000/api/v1/categorys/admin',
         {
           headers: {
             Authorization: `${token}`,
@@ -30,7 +31,7 @@ const BizTokenDashboard: React.FC = () => {
       setLoading(false);
 
       if (response?.data?.success) {
-        setDatas(response?.data?.data);
+        setCatagorys(response?.data?.data);
       }
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -72,7 +73,13 @@ const BizTokenDashboard: React.FC = () => {
     setLoading(true);
     try {
       const response = await axios.get(
-        'http://localhost:5000/api/v1/users/all-donnor?isDonor=true',
+        'http://localhost:5000/api/v1/user/admin',
+        {
+          headers: {
+            Authorization: `${token}`,
+            'Content-Type': 'application/json',
+          },
+        },
       );
 
       setLoading(false);
@@ -86,8 +93,9 @@ const BizTokenDashboard: React.FC = () => {
   };
 
   useEffect(() => {
-    // getusers();
+    getusers();
   }, []);
+  console.log(catagorys);
 
   return (
     <DefaultLayout>
@@ -95,7 +103,7 @@ const BizTokenDashboard: React.FC = () => {
         <Link to={'/'}>
           <CardDataStats
             title="All Catagory"
-            total={`${datas?.data?.length ? datas?.data?.length : '0'}`}
+            total={`${catagorys ? catagorys?.length : '0'}`}
           >
             <PiPackage className="text-2xl dark:text-white text-primary" />
           </CardDataStats>
@@ -104,7 +112,7 @@ const BizTokenDashboard: React.FC = () => {
         <Link to={'/'}>
           <CardDataStats
             title="All  Products"
-            total={`${services ? services?.data?.length : '00'}  `}
+            total={`${services ? services?.length : '00'}  `}
           >
             <UserIcon />
           </CardDataStats>
@@ -113,7 +121,7 @@ const BizTokenDashboard: React.FC = () => {
         <Link to={'/'}>
           <CardDataStats
             title="All Users"
-            total={`${users?.data?.length ? users?.data?.length : '00'}`}
+            total={`${users ? users?.length : '00'}`}
           >
             <UserIcon />
           </CardDataStats>

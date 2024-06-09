@@ -1,7 +1,7 @@
 import { ChangeEvent, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import Swal from 'sweetalert2';
- import { ICatagory } from '../../types/packages';
+import { ICatagory } from '../../types/packages';
 import { PuffLoader } from 'react-spinners';
 import { getTopUpToken } from '../../hooks/handelAdminToken';
 

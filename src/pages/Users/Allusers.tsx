@@ -3,31 +3,28 @@ import DefaultLayout from '../../layout/DefaultLayout';
 import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
 import axios from 'axios';
 import { getTopUpToken } from '../../hooks/handelAdminToken';
- 
+
 const Allusers = () => {
   const [datas, setDatas] = useState<any>([]);
   const [loading, setLoading] = useState<any>(false);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-   const [updateItem, setUpdateItem] = useState<any>();
-
-  
+  const [updateItem, setUpdateItem] = useState<any>();
 
   const token = getTopUpToken();
 
   const fetchData = async () => {
     try {
       const response = await axios.get(
-        'http://localhost:5000/api/v1/user/admin', {
-        headers: {
-          Authorization: `${token}`,
-          'Content-Type': 'application/json',
+        'http://localhost:5000/api/v1/user/admin',
+        {
+          headers: {
+            Authorization: `${token}`,
+            'Content-Type': 'application/json',
+          },
         },
-      },
       );
-      console.log(
-        response.data
-      );
+      console.log(response.data);
 
       if (response?.data?.success) {
         setDatas(response?.data?.data);
@@ -44,7 +41,6 @@ const Allusers = () => {
   return (
     <DefaultLayout>
       <Breadcrumb pageName="Users" />
-
 
       <div className="rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
         <div className="max-w-full overflow-x-auto">
@@ -67,7 +63,6 @@ const Allusers = () => {
                 <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
                   Phone
                 </th>
-
               </tr>
             </thead>
             <tbody>
@@ -90,7 +85,6 @@ const Allusers = () => {
                       {packageItem?.email}
                     </p>
                   </td>
-
 
                   <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                     <p className="text-black dark:text-white">
