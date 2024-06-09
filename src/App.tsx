@@ -47,7 +47,7 @@ function App() {
             path="/dashboard"
             element={
               <>
-                <PageTitle title="KGC ADMIN" />
+                <PageTitle title="Top up" />
                 <BizTokenDashboard />
               </>
             }
@@ -98,6 +98,16 @@ function App() {
             element={
               <>
                 <PageTitle title="All Orders" />
+                <Orders />
+              </>
+            }
+          />
+         
+          <Route
+            path="/deposits"
+            element={
+              <>
+                <PageTitle title="All Deposits" />
                 <Orders />
               </>
             }

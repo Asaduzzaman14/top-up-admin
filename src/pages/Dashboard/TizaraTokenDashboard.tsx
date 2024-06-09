@@ -103,7 +103,7 @@ const BizTokenDashboard: React.FC = () => {
 
         <Link to={'/'}>
           <CardDataStats
-            title="All  Services"
+            title="All  Products"
             total={`${services ? services?.data?.length : '00'}  `}
           >
             <UserIcon />
