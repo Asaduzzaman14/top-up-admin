@@ -5,7 +5,6 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { PuffLoader } from 'react-spinners';
 import { getTopUpToken, setTopUpToken } from '../../hooks/handelAdminToken';
 
-
 type Inputs = {
   email: string;
   password: string;
@@ -33,7 +32,7 @@ const SignIn: React.FC = () => {
     setLoading(true);
     try {
       const response = await fetch(
-        'http://localhost:5000/api/v1/auth/login',
+        'https://topup-app-server.vercel.app/api/v1/auth/login',
         {
           method: 'POST',
           headers: {
@@ -69,10 +68,10 @@ const SignIn: React.FC = () => {
 
   return (
     <div className="min-h-screen flex justify-center items-center place-items-center ">
-      <div className="w-[80%] md:w-[60%] lg:w-[50%]">
-        <div className=" rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-          <div className="flex items-center">
-            <div className="w-full border-stroke dark:border-strokedark xl:w-1/2 xl:border-l-2">
+      <div className="w-[80%]  md:w-[60%] lg:w-[50%]">
+        <div className="  rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+          <div className=" flex items-center">
+            <div className="  w-full border-stroke dark:border-strokedark   xl:border-l-2">
               <div className="w-full p-4 sm:p-12.5 xl:p-17.5">
                 <h2 className="mb-9 text-lg font-bold text-black dark:text-white sm:text-title-md">
                   LOGIN IN TOP UP

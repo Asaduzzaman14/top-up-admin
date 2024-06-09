@@ -14,7 +14,7 @@ type IProduct = {
   description: string;
   diamond: string;
   catagoryId: string;
-}
+};
 
 const AddProducts = () => {
   const { register, handleSubmit } = useForm<IProduct>();
@@ -30,7 +30,7 @@ const AddProducts = () => {
 
     try {
       const response = await axios.get(
-        'http://localhost:5000/api/v1/categorys/admin',
+        'https://topup-app-server.vercel.app/api/v1/categorys/admin',
         {
           headers: {
             Authorization: `${token}`,
@@ -52,10 +52,9 @@ const AddProducts = () => {
     console.log(formData);
     const token = getTopUpToken();
 
-
     try {
       const response = await fetch(
-        'http://localhost:5000/api/v1/products',
+        'https://topup-app-server.vercel.app/api/v1/products',
         {
           method: 'POST',
           headers: {
@@ -91,7 +90,7 @@ const AddProducts = () => {
     setLoading(true);
     try {
       const response = await axios.get(
-        'http://localhost:5000/api/v1/categorys/admin',
+        'https://topup-app-server.vercel.app/api/v1/categorys/admin',
         {
           headers: {
             Authorization: `${token}`,
@@ -111,8 +110,6 @@ const AddProducts = () => {
   useEffect(() => {
     fetchData();
   }, []);
-
-
 
   return (
     <DefaultLayout>
@@ -184,7 +181,7 @@ const AddProducts = () => {
           </div>
           <div className="w-full xl:w-1/2">
             <label className="mt-2.5 mb-0.5 block text-black dark:text-white">
-            diamond
+              diamond
             </label>
             <input
               type="string"
@@ -193,7 +190,7 @@ const AddProducts = () => {
               className="w-full rounded border-[1.5px] border-boxdark-2 bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
             />
           </div>
-        
+
           <div className="w-full xl:w-1/2">
             <label className="mt-2.5 mb-0.5 block text-black dark:text-white">
               Image

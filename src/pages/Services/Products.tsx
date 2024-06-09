@@ -4,11 +4,10 @@ import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
 import axios from 'axios';
 import { formatToLocalDate } from '../../hooks/formatDate';
 import { getTopUpToken } from '../../hooks/handelAdminToken';
-import { UpdateProductsModal, } from './UpdateProductsModal';
+import { UpdateProductsModal } from './UpdateProductsModal';
 import { PuffLoader } from 'react-spinners';
 import Swal from 'sweetalert2';
 import { ViewModal } from './ViewModal';
-
 
 const Products = () => {
   const [datas, setDatas] = useState<any>([]);
@@ -42,7 +41,7 @@ const Products = () => {
     setLoading(true);
     try {
       const response = await axios.get(
-        'http://localhost:5000/api/v1/products',
+        'https://topup-app-server.vercel.app/api/v1/products',
         {
           headers: {
             Authorization: `${token}`,
@@ -78,7 +77,7 @@ const Products = () => {
       if (result.isConfirmed) {
         try {
           const response = await axios.delete(
-            `http://localhost:5000/api/v1/products/${id}`,
+            `https://topup-app-server.vercel.app/api/v1/products/${id}`,
             {
               headers: {
                 Authorization: token,
@@ -133,18 +132,17 @@ const Products = () => {
                 <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
                   Product Name
                 </th>
-              
+
                 <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
                   Price
                 </th>
-               
+
                 <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
-                Diamond
+                  Diamond
                 </th>
                 <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
                   Description
                 </th>
-
 
                 <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
                   Created
@@ -164,7 +162,7 @@ const Products = () => {
                   </td>
 
                   <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                    <img className='w-30 h-30' src={product.img} alt="" />
+                    <img className="w-30 h-30" src={product.img} alt="" />
                   </td>
 
                   <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
@@ -172,13 +170,13 @@ const Products = () => {
                       {product?.name}
                     </p>
                   </td>
-                
+
                   <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                     <p className="text-black dark:text-white">
                       {product?.price}
                     </p>
                   </td>
-                 
+
                   <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                     <p className="text-black dark:text-white">
                       {product?.diamond}
@@ -190,7 +188,7 @@ const Products = () => {
                       {product?.description}
                     </p>
                   </td>
-                
+
                   <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                     <p className="text-black dark:text-white">
                       {formatToLocalDate(product.createdAt)}

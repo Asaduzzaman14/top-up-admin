@@ -3,11 +3,11 @@ import DefaultLayout from '../../layout/DefaultLayout';
 import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
 import axios from 'axios';
 import { formatToLocalDate } from '../../hooks/formatDate';
- import { UpdateCatagoryModal } from './UpdateCatagoryModal';
+import { UpdateCatagoryModal } from './UpdateCatagoryModal';
 import { ICatagory } from '../../types/packages';
 import { AddCatagoryModal } from './AddCatagoryModal';
 import { PuffLoader } from 'react-spinners';
- import Swal from 'sweetalert2';
+import Swal from 'sweetalert2';
 import { getTopUpToken } from '../../hooks/handelAdminToken';
 
 const Catagory = () => {
@@ -31,14 +31,14 @@ const Catagory = () => {
   const closeAddModal = () => {
     setAddCatagoryModal(false);
   };
- 
+
   const token = getTopUpToken();
- 
+
   const fetchData = async () => {
     setLoading(true);
     try {
       const response = await axios.get(
-        'http://localhost:5000/api/v1/categorys/admin',
+        'https://topup-app-server.vercel.app/api/v1/categorys/admin',
         {
           headers: {
             Authorization: `${token}`,
@@ -47,7 +47,7 @@ const Catagory = () => {
         },
       );
       setLoading(false);
- 
+
       if (response?.data?.success) {
         setDatas(response?.data?.data);
       }
@@ -74,7 +74,7 @@ const Catagory = () => {
         try {
           setDeleteLoading(true);
           const response = await axios.delete(
-            `http://localhost:5000/api/v1/categorys/${id}`,
+            `https://topup-app-server.vercel.app/api/v1/categorys/${id}`,
             {
               headers: {
                 Authorization: token,
@@ -82,10 +82,10 @@ const Catagory = () => {
               },
             },
           );
-         await fetchData();
+          await fetchData();
           setDeleteLoading(false);
           if (response.data.success) {
-             Swal.fire({
+            Swal.fire({
               title: 'Deleted!',
               text: 'Your file has been deleted.',
               icon: 'success',
@@ -110,8 +110,8 @@ const Catagory = () => {
     });
   };
 
- console.log(datas);
- 
+  console.log(datas);
+
   return (
     <DefaultLayout>
       <Breadcrumb pageName="Catagory" />
@@ -162,18 +162,12 @@ const Catagory = () => {
 
                   <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                     <p className="text-black dark:text-white">
-                      <img
-                        className="w-15 h-15"
-                        src={data?.img}
-                        alt=""
-                      />
+                      <img className="w-15 h-15" src={data?.img} alt="" />
                     </p>
                   </td>
 
                   <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                    <p className="text-black dark:text-white">
-                      {data?.name}
-                    </p>
+                    <p className="text-black dark:text-white">{data?.name}</p>
                   </td>
 
                   <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">

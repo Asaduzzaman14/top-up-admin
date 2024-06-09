@@ -3,7 +3,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import Swal from 'sweetalert2';
 import { PuffLoader } from 'react-spinners';
 import { getTopUpToken } from '../../hooks/handelAdminToken';
- 
+
 export type ICatagory = {
   img?: string | null;
   description?: string;
@@ -24,10 +24,10 @@ export const AddCatagoryModal = ({ fetchData, closeModal }: IUpdatePackage) => {
 
     try {
       const token = getTopUpToken();
-console.log(token);
+      console.log(token);
 
       const response = await fetch(
-        `http://localhost:5000/api/v1/categorys`,
+        `https://topup-app-server.vercel.app/api/v1/categorys`,
         {
           method: 'POST',
           headers: {
@@ -38,7 +38,7 @@ console.log(token);
         },
       );
       console.log(response);
-      
+
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }

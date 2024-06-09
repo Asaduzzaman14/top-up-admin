@@ -24,7 +24,7 @@ const OrderUpdateModal = ({ fetchData, closeModal, updateItem }: any) => {
 
     try {
       const response = await fetch(
-        `http://localhost:5000/api/v1/orders/${updateItem?._id}`,
+        `https://topup-app-server.vercel.app/api/v1/orders/${updateItem?._id}`,
         {
           method: 'PATCH',
           headers: {

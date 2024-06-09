@@ -16,14 +16,14 @@ type IService = {
   price: string;
   diamond: string;
   description: string;
-}
+};
 
 export const UpdateProductsModal = ({
   fetchData,
   closeModal,
   updateItem,
 }: IUpdatePackage) => {
-  const token = getTopUpToken()
+  const token = getTopUpToken();
 
   const [lodaing, setLoading] = useState(false);
   const [formState, setFormState] = useState({ ...updateItem });
@@ -36,14 +36,17 @@ export const UpdateProductsModal = ({
   const onSubmit: SubmitHandler<IService> = async (data: IService) => {
     setLoading(true);
     try {
-      const response = await fetch(`http://localhost:5000/api/v1/products/${updateItem?._id}`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `${token}`,
+      const response = await fetch(
+        `https://topup-app-server.vercel.app/api/v1/products/${updateItem?._id}`,
+        {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `${token}`,
+          },
+          body: JSON.stringify(data),
         },
-        body: JSON.stringify(data),
-      });
+      );
 
       if (!response.ok) {
         throw new Error('Network response was not ok');
@@ -98,7 +101,7 @@ export const UpdateProductsModal = ({
               onSubmit={handleSubmit(onSubmit)}
               className="flex  flex-col w-full gap-5.5 p-6.5"
             >
-              <img className='w-12 h-12 mx-auto' src={formState?.img} alt="" />
+              <img className="w-12 h-12 mx-auto" src={formState?.img} alt="" />
               <div>
                 <p>Image Link</p>
                 <input
@@ -128,7 +131,7 @@ export const UpdateProductsModal = ({
                   onChange={handleChange}
                 />
               </div>
-           
+
               <div>
                 <p>diamond</p>
                 <input
