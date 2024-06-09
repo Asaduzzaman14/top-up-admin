@@ -16,6 +16,7 @@ import Catagory from './pages/Catagory/Catagory';
  import Allusers from './pages/Users/Allusers';
 import Products from './pages/Services/Products';
 import Orders from './pages/Orders/Orders';
+import Banner from './pages/Banner/Banner';
 
 function App() {
   const { pathname } = useLocation();
@@ -109,6 +110,17 @@ function App() {
               <>
                 <PageTitle title="All Deposits" />
                 <Orders />
+              </>
+            }
+          />
+
+          
+          <Route
+            path="/banner"
+            element={
+              <>
+                <PageTitle title="Banner" />
+                <Banner />
               </>
             }
           />

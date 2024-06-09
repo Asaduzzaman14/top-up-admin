@@ -78,7 +78,7 @@ const Products = () => {
       if (result.isConfirmed) {
         try {
           const response = await axios.delete(
-            `http://localhost:5000/api/v1/services/${id}`,
+            `http://localhost:5000/api/v1/products/${id}`,
             {
               headers: {
                 Authorization: token,
