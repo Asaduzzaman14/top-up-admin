@@ -4,6 +4,7 @@ import { getTopUpToken } from '../../hooks/handelAdminToken';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import BannerUpdate from './BannerUpdate';
+import Addbanners from './Addbanners';
 
 export type IBanner = {
   id: string;
@@ -12,6 +13,7 @@ export type IBanner = {
 const Banner = () => {
   const [datas, setDatas] = useState<IBanner[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [addBannerModal, setAddBannerModal] = useState(false);
   const [updateItem, setUpdateItem] = useState<IBanner>();
 
   const openModal = (data: IBanner) => {
@@ -22,6 +24,11 @@ const Banner = () => {
   const closeModal = () => {
     setIsModalOpen(false);
   };
+
+  const closeAddModal = () => {
+    setAddBannerModal(false);
+  };
+
   const token = getTopUpToken();
 
   const fetchData = async () => {
@@ -54,6 +61,15 @@ const Banner = () => {
     <DefaultLayout>
       <Breadcrumb pageName="Banners" />
 
+      <div>
+        <button
+          type="button"
+          onClick={() => setAddBannerModal(true)}
+          className="btn mb-3 flex justify-center rounded bg-strokedark py-2 px-6 font-medium text-gray hover:shadow-1"
+        >
+          Add Banners
+        </button>
+      </div>
       <div className="rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
         <div className="max-w-full overflow-x-auto">
           <table className="w-full table-auto">
@@ -158,6 +174,12 @@ const Banner = () => {
             updateItem={updateItem}
             fetchData={fetchData}
           />
+        )}
+      </div>
+
+      <div>
+        {addBannerModal && (
+          <Addbanners closeModal={closeAddModal} fetchData={fetchData} />
         )}
       </div>
     </DefaultLayout>

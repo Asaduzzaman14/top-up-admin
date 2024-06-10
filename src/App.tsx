@@ -1,4 +1,4 @@
-import { Suspense, lazy, useEffect,  } from 'react';
+import { Suspense, lazy, useEffect } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import PageTitle from './components/PageTitle';
 import SignIn from './pages/Authentication/SignIn';
@@ -12,8 +12,8 @@ import Lazyloding from './components/Lazyloding';
 
 import BizTokenDashboard from './pages/Dashboard/TizaraTokenDashboard';
 import Catagory from './pages/Catagory/Catagory';
- import AddServices from './pages/Services/AddProducts';
- import Allusers from './pages/Users/Allusers';
+import AddServices from './pages/Services/AddProducts';
+import Allusers from './pages/Users/Allusers';
 import Products from './pages/Services/Products';
 import Orders from './pages/Orders/Orders';
 import Banner from './pages/Banner/Banner';
@@ -93,7 +93,7 @@ function App() {
               </>
             }
           />
-         
+
           <Route
             path="/all-orders"
             element={
@@ -103,7 +103,7 @@ function App() {
               </>
             }
           />
-         
+
           <Route
             path="/deposits"
             element={
@@ -114,7 +114,6 @@ function App() {
             }
           />
 
-          
           <Route
             path="/banner"
             element={

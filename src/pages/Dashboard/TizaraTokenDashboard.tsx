@@ -100,7 +100,7 @@ const BizTokenDashboard: React.FC = () => {
   return (
     <DefaultLayout>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-7.5">
-        <Link to={'/'}>
+        <Link to={'/catagory'}>
           <CardDataStats
             title="All Catagory"
             total={`${catagorys ? catagorys?.length : '0'}`}
@@ -109,7 +109,7 @@ const BizTokenDashboard: React.FC = () => {
           </CardDataStats>
         </Link>
 
-        <Link to={'/'}>
+        <Link to={'/all-product'}>
           <CardDataStats
             title="All  Products"
             total={`${services ? services?.length : '00'}  `}
@@ -118,7 +118,7 @@ const BizTokenDashboard: React.FC = () => {
           </CardDataStats>
         </Link>
 
-        <Link to={'/'}>
+        <Link to={'/all-users'}>
           <CardDataStats
             title="All Users"
             total={`${users ? users?.length : '00'}`}
