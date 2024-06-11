@@ -10,13 +10,16 @@ import { SkeletonTheme } from 'react-loading-skeleton';
 import useColorMode from './hooks/useColorMode';
 import Lazyloding from './components/Lazyloding';
 
-import BizTokenDashboard from './pages/Dashboard/TizaraTokenDashboard';
 import Catagory from './pages/Catagory/Catagory';
 import AddServices from './pages/Services/AddProducts';
 import Allusers from './pages/Users/Allusers';
 import Products from './pages/Services/Products';
 import Orders from './pages/Orders/Orders';
 import Banner from './pages/Banner/Banner';
+import Payment from './pages/Payment/Payment';
+import AdminDashboard from './pages/Dashboard/AdminDashboard';
+import PendingOrders from './pages/Orders/PendingOrders';
+import RejectedOrders from './pages/Orders/RejectedOrders';
 
 function App() {
   const { pathname } = useLocation();
@@ -49,7 +52,7 @@ function App() {
             element={
               <>
                 <PageTitle title="Top up" />
-                <BizTokenDashboard />
+                <AdminDashboard />
               </>
             }
           />
@@ -95,11 +98,31 @@ function App() {
           />
 
           <Route
-            path="/all-orders"
+            path="/order/all-orders"
             element={
               <>
                 <PageTitle title="All Orders" />
                 <Orders />
+              </>
+            }
+          />
+
+          <Route
+            path="/order/pending-orders"
+            element={
+              <>
+                <PageTitle title="Pending Orders" />
+                <PendingOrders />
+              </>
+            }
+          />
+
+          <Route
+            path="/order/rejected-order"
+            element={
+              <>
+                <PageTitle title="Rejected Orders" />
+                <RejectedOrders />
               </>
             }
           />
@@ -110,6 +133,16 @@ function App() {
               <>
                 <PageTitle title="All Deposits" />
                 <Orders />
+              </>
+            }
+          />
+
+          <Route
+            path="/payment"
+            element={
+              <>
+                <PageTitle title="Payment" />
+                <Payment />
               </>
             }
           />

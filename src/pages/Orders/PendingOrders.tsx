@@ -16,10 +16,10 @@ export type IOrder = {
   diamond: string;
   playerId: string;
   orderNumber: number;
-  status: boolean;
+  status: string;
 };
 
-const Orders = () => {
+const PendingOrders = () => {
   const [datas, setDatas] = useState<IOrder[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [updateItem, setUpdateItem] = useState<IOrder>();
@@ -105,9 +105,13 @@ const Orders = () => {
     });
   };
 
+  const pendingOrders = datas?.filter(
+    (order) => order?.status.includes('pending'),
+  );
+
   return (
     <DefaultLayout>
-      <Breadcrumb pageName="Orders" />
+      <Breadcrumb pageName="Pending Orders" />
 
       <div className="rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
         <div className="max-w-full overflow-x-auto">
@@ -124,13 +128,6 @@ const Orders = () => {
                 <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
                   Product Name
                 </th>
-                {/* <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
-                  Email
-                </th> */}
-
-                {/* <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
-                  Phone
-                </th> */}
 
                 <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
                   Order No
@@ -141,7 +138,7 @@ const Orders = () => {
                 </th>
 
                 <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
-                  Date
+                  Data
                 </th>
 
                 <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
@@ -154,7 +151,7 @@ const Orders = () => {
               </tr>
             </thead>
             <tbody>
-              {datas?.map((packageItem: any, key: any) => (
+              {pendingOrders?.map((order: any, key: any) => (
                 <tr key={key}>
                   <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
                     <h5 className="font-medium text-black dark:text-white">
@@ -163,36 +160,36 @@ const Orders = () => {
                   </td>
 
                   <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                    <img className="w-20 h-20" src={packageItem?.img} alt="" />
+                    <img className="w-20 h-20" src={order?.img} alt="" />
                   </td>
                   <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                     <p className="text-black dark:text-white">
-                      {packageItem?.productName}
+                      {order?.productName}
                     </p>
                   </td>
 
                   <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                     <p className="text-black dark:text-white">
-                      {packageItem?.orderNumber}
+                      {order?.orderNumber}
                     </p>
                   </td>
 
                   <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                     <p className="text-black dark:text-white">
-                      {packageItem?.userId.email}
+                      {order?.userId.email}
                     </p>
-                    <span> {packageItem?.userId.name}</span>
+                    <span> {order?.userId.name}</span>
                   </td>
 
                   <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                     <p className="text-black uppercase dark:text-white">
-                      {formatToLocalDate(packageItem?.createdAt)}
+                      {formatToLocalDate(order?.createdAt)}
                     </p>
                   </td>
 
                   <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                     <p className="text-black uppercase dark:text-white">
-                      {packageItem?.status}
+                      {order?.status}
                     </p>
                   </td>
 
@@ -223,7 +220,7 @@ const Orders = () => {
                       </button>
                       {/* delete  */}
                       <button
-                        onClick={() => deleteServices(packageItem?._id)}
+                        onClick={() => deleteServices(order?._id)}
                         className="hover:text-primary"
                       >
                         <svg
@@ -254,7 +251,7 @@ const Orders = () => {
                       </button>
                       {/* edit btn */}
                       <button
-                        onClick={() => openModal(packageItem)}
+                        onClick={() => openModal(order)}
                         className="hover:text-primary"
                       >
                         <svg
@@ -296,4 +293,4 @@ const Orders = () => {
   );
 };
 
-export default Orders;
+export default PendingOrders;

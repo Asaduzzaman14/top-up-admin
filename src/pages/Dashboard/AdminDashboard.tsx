@@ -7,7 +7,7 @@ import { PiPackage } from 'react-icons/pi';
 import axios from 'axios';
 import { getTopUpToken } from '../../hooks/handelAdminToken';
 
-const BizTokenDashboard: React.FC = () => {
+const AdminDashboard: React.FC = () => {
   const [datas, setDatas] = useState<any>([]);
   const [catagorys, setCatagorys] = useState<any>([]);
   const [users, setUsers] = useState<any>([]);
@@ -126,6 +126,15 @@ const BizTokenDashboard: React.FC = () => {
             <UserIcon />
           </CardDataStats>
         </Link>
+
+        <Link to={'/all-orders'}>
+          <CardDataStats
+            title="All Orders"
+            total={`${users ? users?.length : '00'}`}
+          >
+            <UserIcon />
+          </CardDataStats>
+        </Link>
       </div>
 
       <div className="mt-5">
@@ -136,4 +145,4 @@ const BizTokenDashboard: React.FC = () => {
   );
 };
 
-export default BizTokenDashboard;
+export default AdminDashboard;
