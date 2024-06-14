@@ -1,31 +1,22 @@
+import Swal from 'sweetalert2';
+import { getTopUpToken } from '../../hooks/handelAdminToken';
 import { useEffect, useState } from 'react';
+import axios from 'axios';
 import DefaultLayout from '../../layout/DefaultLayout';
 import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
-import { getTopUpToken } from '../../hooks/handelAdminToken';
-import axios from 'axios';
-import Swal from 'sweetalert2';
-import OrderUpdateModal from './OrderUpdateModal';
 import { formatToLocalDate } from '../../hooks/formatDate';
-import PaginationButtons from '../../components/Pagination/PaginationButtons';
+import { PuffLoader } from 'react-spinners';
 
-export type IOrder = {
-  _id: string;
-  userId: string;
-  productName: string;
-  img: string;
-  price: string;
-  diamond: string;
-  playerId: string;
-  orderNumber: number;
-  status: boolean;
-};
+const ManualPayment = () => {
+  const [datas, setDatas] = useState<any>();
+  const [loading, setLoading] = useState<any>(false);
+  const [deleteLoading, setDeleteLoading] = useState<any>(false);
 
-const Orders = () => {
-  const [datas, setDatas] = useState<IOrder[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [updateItem, setUpdateItem] = useState<IOrder>();
+  const [addCatagoryModal, setAddCatagoryModal] = useState(false);
+  const [updateItem, setUpdateItem] = useState<any>();
 
-  const openModal = (data: IOrder) => {
+  const openModal = (data: any) => {
     setUpdateItem(data);
     setIsModalOpen(true);
   };
@@ -33,12 +24,18 @@ const Orders = () => {
   const closeModal = () => {
     setIsModalOpen(false);
   };
+
+  const closeAddModal = () => {
+    setAddCatagoryModal(false);
+  };
+
   const token = getTopUpToken();
 
   const fetchData = async () => {
+    setLoading(true);
     try {
       const response = await axios.get(
-        'https://topup-app-server.vercel.app/api/v1/orders/admin',
+        'https://topup-app-server.vercel.app/api/v1/categorys/admin',
         {
           headers: {
             Authorization: `${token}`,
@@ -46,6 +43,8 @@ const Orders = () => {
           },
         },
       );
+      setLoading(false);
+
       if (response?.data?.success) {
         setDatas(response?.data?.data);
       }
@@ -58,7 +57,7 @@ const Orders = () => {
     fetchData();
   }, []);
 
-  const deleteServices = async (id: string) => {
+  const deleteCategory = async (id: string) => {
     Swal.fire({
       title: 'Are you sure?',
       text: "You won't be able to revert this!",
@@ -70,8 +69,9 @@ const Orders = () => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
+          setDeleteLoading(true);
           const response = await axios.delete(
-            `https://topup-app-server.vercel.app/api/v1/orders/${id}`,
+            `https://topup-app-server.vercel.app/api/v1/categorys/${id}`,
             {
               headers: {
                 Authorization: token,
@@ -79,11 +79,12 @@ const Orders = () => {
               },
             },
           );
-          fetchData();
+          await fetchData();
+          setDeleteLoading(false);
           if (response.data.success) {
             Swal.fire({
               title: 'Deleted!',
-              text: 'Order has been deleted.',
+              text: 'Your file has been deleted.',
               icon: 'success',
             });
           } else {
@@ -105,18 +106,22 @@ const Orders = () => {
       }
     });
   };
-  // pagination calculate
-  const [currentPage, setCurrentPage] = useState(0);
-  const [perPage, setparePage] = useState(25);
 
-  const from = currentPage * perPage;
-  const to = from + perPage;
-  //  pagination end
+  console.log(datas);
 
   return (
     <DefaultLayout>
-      <Breadcrumb pageName="Orders" />
+      <Breadcrumb pageName="Manual Payment Method" />
 
+      <div>
+        <button
+          type="button"
+          onClick={() => setAddCatagoryModal(true)}
+          className="btn mb-3 flex justify-center rounded bg-strokedark py-2 px-6 font-medium text-gray hover:shadow-1"
+        >
+          Add Method
+        </button>
+      </div>
       <div className="rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
         <div className="max-w-full overflow-x-auto">
           <table className="w-full table-auto">
@@ -128,41 +133,23 @@ const Orders = () => {
                 <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
                   Image
                 </th>
-
-                <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
-                  Product Name
+                <th className="min-w-[170px] py-4 px-4 font-medium text-black dark:text-white">
+                  Catagory Name
                 </th>
-                {/* <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
-                  Email
-                </th> */}
-
-                {/* <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
-                  Phone
-                </th> */}
-
-                <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
-                  Order No
+                <th className="min-w-[150px] py-4 px-4 font-medium text-black dark:text-white">
+                  Description
+                </th>
+                <th className="min-w-[150px] py-4 px-4 font-medium text-black dark:text-white">
+                  Updated
                 </th>
 
                 <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
-                  User name
-                </th>
-
-                <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
-                  Date
-                </th>
-
-                <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
-                  Status
-                </th>
-
-                <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
-                  Actions
+                  Action
                 </th>
               </tr>
             </thead>
             <tbody>
-              {datas?.slice(from, to).map((packageItem: any, key: any) => (
+              {datas?.map((data: any, key: any) => (
                 <tr key={key}>
                   <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
                     <h5 className="font-medium text-black dark:text-white">
@@ -171,73 +158,60 @@ const Orders = () => {
                   </td>
 
                   <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                    <img className="w-20 h-20" src={packageItem?.img} alt="" />
-                  </td>
-                  <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                     <p className="text-black dark:text-white">
-                      {packageItem?.productName}
+                      <img className="w-15 h-15" src={data?.img} alt="" />
                     </p>
                   </td>
 
                   <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                    <p className="text-black dark:text-white">
-                      {packageItem?.orderNumber}
-                    </p>
+                    <p className="text-black dark:text-white">{data?.name}</p>
                   </td>
 
                   <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                     <p className="text-black dark:text-white">
-                      {packageItem?.userId.email}
-                    </p>
-                    <span> {packageItem?.userId.name}</span>
-                  </td>
-
-                  <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                    <p className="text-black uppercase dark:text-white">
-                      {formatToLocalDate(packageItem?.createdAt)}
+                      {data?.description}
                     </p>
                   </td>
-
                   <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                    <p className="text-black uppercase dark:text-white">
-                      {packageItem?.status}
+                    <p className="text-black dark:text-white">
+                      {formatToLocalDate(data?.updatedAt)}
                     </p>
                   </td>
 
                   <td className="border-b border-[#eee] py-5 px-3 dark:border-strokedark">
                     <div className="flex items-center space-x-3.5">
                       {/* details btn */}
-                      <button
-                        // onClick={() => openViewModal(product)}
-                        className="hover:text-primary"
+                      {/* <button
+                      // onClick={() => openViewModal(data)}
+                      className="hover:text-primary"
+                    >
+                      <svg
+                        className="fill-current"
+                        width="22"
+                        height="22"
+                        viewBox="0 0 18 18"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
                       >
-                        {/* <svg
-                          className="fill-current"
-                          width="18"
-                          height="18"
-                          viewBox="0 0 18 18"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M8.99981 14.8219C3.43106 14.8219 0.674805 9.50624 0.562305 9.28124C0.47793 9.11249 0.47793 8.88749 0.562305 8.71874C0.674805 8.49374 3.43106 3.20624 8.99981 3.20624C14.5686 3.20624 17.3248 8.49374 17.4373 8.71874C17.5217 8.88749 17.5217 9.11249 17.4373 9.28124C17.3248 9.50624 14.5686 14.8219 8.99981 14.8219ZM1.85605 8.99999C2.4748 10.0406 4.89356 13.5562 8.99981 13.5562C13.1061 13.5562 15.5248 10.0406 16.1436 8.99999C15.5248 7.95936 13.1061 4.44374 8.99981 4.44374C4.89356 4.44374 2.4748 7.95936 1.85605 8.99999Z"
-                            fill=""
-                          />
-                          <path
-                            d="M9 11.3906C7.67812 11.3906 6.60938 10.3219 6.60938 9C6.60938 7.67813 7.67812 6.60938 9 6.60938C10.3219 6.60938 11.3906 7.67813 11.3906 9C11.3906 10.3219 10.3219 11.3906 9 11.3906ZM9 7.875C8.38125 7.875 7.875 8.38125 7.875 9C7.875 9.61875 8.38125 10.125 9 10.125C9.61875 10.125 10.125 9.61875 10.125 9C10.125 8.38125 9.61875 7.875 9 7.875Z"
-                            fill=""
-                          />
-                        </svg> */}
-                      </button>
+                        <path
+                          d="M8.99981 14.8219C3.43106 14.8219 0.674805 9.50624 0.562305 9.28124C0.47793 9.11249 0.47793 8.88749 0.562305 8.71874C0.674805 8.49374 3.43106 3.20624 8.99981 3.20624C14.5686 3.20624 17.3248 8.49374 17.4373 8.71874C17.5217 8.88749 17.5217 9.11249 17.4373 9.28124C17.3248 9.50624 14.5686 14.8219 8.99981 14.8219ZM1.85605 8.99999C2.4748 10.0406 4.89356 13.5562 8.99981 13.5562C13.1061 13.5562 15.5248 10.0406 16.1436 8.99999C15.5248 7.95936 13.1061 4.44374 8.99981 4.44374C4.89356 4.44374 2.4748 7.95936 1.85605 8.99999Z"
+                          fill=""
+                        />
+                        <path
+                          d="M9 11.3906C7.67812 11.3906 6.60938 10.3219 6.60938 9C6.60938 7.67813 7.67812 6.60938 9 6.60938C10.3219 6.60938 11.3906 7.67813 11.3906 9C11.3906 10.3219 10.3219 11.3906 9 11.3906ZM9 7.875C8.38125 7.875 7.875 8.38125 7.875 9C7.875 9.61875 8.38125 10.125 9 10.125C9.61875 10.125 10.125 9.61875 10.125 9C10.125 8.38125 9.61875 7.875 9 7.875Z"
+                          fill=""
+                        />
+                      </svg>
+                    </button> */}
                       {/* delete  */}
                       <button
-                        onClick={() => deleteServices(packageItem?._id)}
+                        onClick={() => deleteCategory(data?._id)}
                         className="hover:text-primary"
                       >
                         <svg
                           className="fill-current"
-                          width="18"
-                          height="18"
+                          width="22"
+                          height="22"
                           viewBox="0 0 18 18"
                           fill="none"
                           xmlns="http://www.w3.org/2000/svg"
@@ -262,11 +236,11 @@ const Orders = () => {
                       </button>
                       {/* edit btn */}
                       <button
-                        onClick={() => openModal(packageItem)}
+                        onClick={() => openModal(data)}
                         className="hover:text-primary"
                       >
                         <svg
-                          className="w-6 h-6 text-gray-800  "
+                          className="w-6 h-6 text-gray-800"
                           aria-hidden="true"
                           xmlns="http://www.w3.org/2000/svg"
                           width="24"
@@ -289,26 +263,28 @@ const Orders = () => {
               ))}
             </tbody>
           </table>
-        </div>
-        <div className="my-4">
-          <PaginationButtons
-            totalPages={Math.ceil(datas.length / perPage)}
-            currentPage={2}
-            setCurrentPage={setCurrentPage}
-          />
+          {loading && (
+            <PuffLoader className="mx-auto" color="#00ddff" size={40} />
+          )}
         </div>
       </div>
-      <div>
-        {isModalOpen && (
-          <OrderUpdateModal
-            closeModal={closeModal}
-            updateItem={updateItem}
-            fetchData={fetchData}
-          />
-        )}
-      </div>
+      {/* <div>
+      {isModalOpen && (
+        <UpdateCatagoryModal
+          closeModal={closeModal}
+          updateItem={updateItem}
+          fetchData={fetchData}
+        />
+      )}
+    </div> */}
+
+      {/* <div>
+      {addCatagoryModal && (
+        <AddCatagoryModal closeModal={closeAddModal} fetchData={fetchData} />
+      )}
+    </div> */}
     </DefaultLayout>
   );
 };
 
-export default Orders;
+export default ManualPayment;

@@ -8,6 +8,7 @@ import { UpdateProductsModal } from './UpdateProductsModal';
 import { PuffLoader } from 'react-spinners';
 import Swal from 'sweetalert2';
 import { ViewModal } from './ViewModal';
+import PaginationButtons from '../../components/Pagination/PaginationButtons';
 
 const Products = () => {
   const [datas, setDatas] = useState<any>([]);
@@ -112,7 +113,13 @@ const Products = () => {
     });
   };
   console.log(datas);
+  // pagination calculate
+  const [currentPage, setCurrentPage] = useState(0);
+  const [perPage, setparePage] = useState(25);
 
+  const from = currentPage * perPage;
+  const to = from + perPage;
+  //  pagination end
   return (
     <DefaultLayout>
       <Breadcrumb pageName="Products" />
@@ -153,7 +160,7 @@ const Products = () => {
               </tr>
             </thead>
             <tbody>
-              {datas?.map((product: any, key: any) => (
+              {datas?.slice(from, to).map((product: any, key: any) => (
                 <tr key={key}>
                   <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
                     <h5 className="font-medium text-black dark:text-white">
@@ -280,6 +287,13 @@ const Products = () => {
               ))}
             </tbody>
           </table>
+        </div>
+        <div className="my-4">
+          <PaginationButtons
+            totalPages={Math.ceil(datas.length / perPage)}
+            currentPage={2}
+            setCurrentPage={setCurrentPage}
+          />
         </div>
         {loading && (
           <PuffLoader className="mx-auto" color="#00ddff" size={40} />

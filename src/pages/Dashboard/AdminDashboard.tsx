@@ -12,6 +12,7 @@ const AdminDashboard: React.FC = () => {
   const [catagorys, setCatagorys] = useState<any>([]);
   const [users, setUsers] = useState<any>([]);
   const [services, setServices] = useState<any>([]);
+  const [orders, setOrders] = useState<any>([]);
   const [loding, setLoading] = useState<boolean>(false);
 
   const token = getTopUpToken();
@@ -97,6 +98,29 @@ const AdminDashboard: React.FC = () => {
   }, []);
   console.log(catagorys);
 
+  const fetchOrderData = async () => {
+    try {
+      const response = await axios.get(
+        'https://topup-app-server.vercel.app/api/v1/orders/admin',
+        {
+          headers: {
+            Authorization: `${token}`,
+            'Content-Type': 'application/json',
+          },
+        },
+      );
+      if (response?.data?.success) {
+        setOrders(response?.data?.data);
+      }
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchOrderData();
+  }, []);
+
   return (
     <DefaultLayout>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-7.5">
@@ -130,7 +154,7 @@ const AdminDashboard: React.FC = () => {
         <Link to={'/all-orders'}>
           <CardDataStats
             title="All Orders"
-            total={`${users ? users?.length : '00'}`}
+            total={`${orders ? orders?.length : '00'}`}
           >
             <UserIcon />
           </CardDataStats>

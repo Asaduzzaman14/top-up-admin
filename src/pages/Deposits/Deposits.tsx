@@ -12,7 +12,7 @@ const Deposits = () => {
   const fetchData = async () => {
     try {
       const response = await axios.get(
-        'https://topup-app-server.vercel.app/api/v1/orders/admin',
+        'https://topup-app-server.vercel.app/api/v1/deposit/admin',
         {
           headers: {
             Authorization: `${token}`,
@@ -53,10 +53,23 @@ const Deposits = () => {
                   Email
                 </th>
                 <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
-                  Wallet
+                  User Phone
+                </th>
+
+                <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
+                  Amount
                 </th>
                 <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
-                  Phone
+                  phone
+                </th>
+                <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
+                  trxId
+                </th>
+                <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
+                  Status
+                </th>
+                <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
+                  Action
                 </th>
               </tr>
             </thead>
@@ -71,26 +84,45 @@ const Deposits = () => {
 
                   <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                     <p className="text-black dark:text-white">
-                      {packageItem?.name}
+                      {packageItem?.userId?.name}
                     </p>
                   </td>
 
                   <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                     <p className="text-black dark:text-white">
-                      {packageItem?.email}
+                      {packageItem?.userId?.email}
+                    </p>
+                  </td>
+                  <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                    <p className="text-black dark:text-white">
+                      {packageItem?.userId?.phone}
                     </p>
                   </td>
 
                   <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                     <p className="text-black dark:text-white">
-                      {packageItem?.wallet}
+                      {packageItem?.amount}
                     </p>
                   </td>
-
                   <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                     <p className="text-black dark:text-white">
                       {packageItem?.phone}
                     </p>
+                  </td>
+
+                  <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                    <p className="text-black dark:text-white">
+                      {packageItem?.trxId}
+                    </p>
+                  </td>
+
+                  <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                    <p className="text-black dark:text-white">
+                      {packageItem?.status}
+                    </p>
+                  </td>
+                  <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                    <p className="text-black dark:text-white">actions</p>
                   </td>
                 </tr>
               ))}

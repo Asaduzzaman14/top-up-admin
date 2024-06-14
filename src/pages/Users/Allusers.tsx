@@ -3,6 +3,7 @@ import DefaultLayout from '../../layout/DefaultLayout';
 import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
 import axios from 'axios';
 import { getTopUpToken } from '../../hooks/handelAdminToken';
+import PaginationButtons from '../../components/Pagination/PaginationButtons';
 
 const Allusers = () => {
   const [datas, setDatas] = useState<any>([]);
@@ -38,6 +39,14 @@ const Allusers = () => {
     fetchData();
   }, []);
 
+  // pagination calculate
+  const [currentPage, setCurrentPage] = useState(0);
+  const [perPage, setparePage] = useState(25);
+
+  const from = currentPage * perPage;
+  const to = from + perPage;
+  //  pagination end
+
   return (
     <DefaultLayout>
       <Breadcrumb pageName="Users" />
@@ -66,7 +75,7 @@ const Allusers = () => {
               </tr>
             </thead>
             <tbody>
-              {datas?.map((packageItem: any, key: any) => (
+              {datas?.slice(from, to).map((packageItem: any, key: any) => (
                 <tr key={key}>
                   <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
                     <h5 className="font-medium text-black dark:text-white">
@@ -101,6 +110,13 @@ const Allusers = () => {
               ))}
             </tbody>
           </table>
+        </div>
+        <div className="my-4">
+          <PaginationButtons
+            totalPages={Math.ceil(datas.length / perPage)}
+            currentPage={2}
+            setCurrentPage={setCurrentPage}
+          />
         </div>
       </div>
     </DefaultLayout>

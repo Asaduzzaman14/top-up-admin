@@ -42,3 +42,19 @@ const PaginationButtons = ({
   );
 };
 export default PaginationButtons;
+
+// pagination calculate
+// const [currentPage, setCurrentPage] = useState(0);
+// const [perPage, setparePage] = useState(25);
+
+// const from = currentPage * perPage;
+// const to = from + perPage;
+//  pagination end
+
+//   <div className="my-4">
+//   <PaginationButtons
+//     totalPages={Math.ceil(filteredDeposits.length / perPage)}
+//     currentPage={2}
+//     setCurrentPage={setCurrentPage}
+//   />
+// </div>

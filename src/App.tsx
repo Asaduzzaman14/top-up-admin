@@ -20,6 +20,8 @@ import Payment from './pages/Payment/Payment';
 import AdminDashboard from './pages/Dashboard/AdminDashboard';
 import PendingOrders from './pages/Orders/PendingOrders';
 import RejectedOrders from './pages/Orders/RejectedOrders';
+import Deposits from './pages/Deposits/Deposits';
+import ManualPayment from './pages/ManualPayment/ManualPayment';
 
 function App() {
   const { pathname } = useLocation();
@@ -132,7 +134,7 @@ function App() {
             element={
               <>
                 <PageTitle title="All Deposits" />
-                <Orders />
+                <Deposits />
               </>
             }
           />
@@ -143,6 +145,16 @@ function App() {
               <>
                 <PageTitle title="Payment" />
                 <Payment />
+              </>
+            }
+          />
+
+          <Route
+            path="/manual-payment"
+            element={
+              <>
+                <PageTitle title="Manual Payment" />
+                <ManualPayment />
               </>
             }
           />
