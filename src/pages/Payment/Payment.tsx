@@ -122,13 +122,6 @@ const Payment = () => {
             </tbody>
           </table>
         </div>
-        <div className="my-4">
-          <PaginationButtons
-            totalPages={Math.ceil(datas.length / perPage)}
-            currentPage={2}
-            setCurrentPage={setCurrentPage}
-          />
-        </div>
       </div>
 
       <div>

@@ -11,3 +11,7 @@ export const setTopUpToken = (token: string) => {
 export const removeTopUpToken = () => {
   localStorage.removeItem('topup');
 };
+
+export const handleLogout = () => {
+  localStorage.removeItem('topup');
+};

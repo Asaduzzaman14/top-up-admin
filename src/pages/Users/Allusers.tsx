@@ -4,6 +4,7 @@ import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
 import axios from 'axios';
 import { getTopUpToken } from '../../hooks/handelAdminToken';
 import PaginationButtons from '../../components/Pagination/PaginationButtons';
+import { PuffLoader } from 'react-spinners';
 
 const Allusers = () => {
   const [datas, setDatas] = useState<any>([]);
@@ -15,6 +16,7 @@ const Allusers = () => {
   const token = getTopUpToken();
 
   const fetchData = async () => {
+    setLoading(true);
     try {
       const response = await axios.get(
         'https://topup-app-server.vercel.app/api/v1/user/admin',
@@ -25,14 +27,16 @@ const Allusers = () => {
           },
         },
       );
-      console.log(response.data);
 
       if (response?.data?.success) {
+        setLoading(false);
+
         setDatas(response?.data?.data);
       }
     } catch (error) {
       console.error('Error fetching data:', error);
     }
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -119,6 +123,7 @@ const Allusers = () => {
           />
         </div>
       </div>
+      {loading && <PuffLoader className="mx-auto" color="#00ddff" size={40} />}
     </DefaultLayout>
   );
 };

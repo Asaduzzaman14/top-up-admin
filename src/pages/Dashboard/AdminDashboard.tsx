@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react';
 import CardDataStats from '../../components/CardDataStats';
 import DefaultLayout from '../../layout/DefaultLayout';
 import UserIcon from '../../assets/icon/UserIcon';
-import { Link } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { PiPackage } from 'react-icons/pi';
 import axios from 'axios';
-import { getTopUpToken } from '../../hooks/handelAdminToken';
+import { getTopUpToken, handleLogout } from '../../hooks/handelAdminToken';
 
 const AdminDashboard: React.FC = () => {
   const [datas, setDatas] = useState<any>([]);
@@ -15,6 +15,7 @@ const AdminDashboard: React.FC = () => {
   const [orders, setOrders] = useState<any>([]);
   const [loding, setLoading] = useState<boolean>(false);
 
+  const navigate = useNavigate();
   const token = getTopUpToken();
 
   const fetchData = async () => {
@@ -34,8 +35,15 @@ const AdminDashboard: React.FC = () => {
       if (response?.data?.success) {
         setCatagorys(response?.data?.data);
       }
-    } catch (error) {
-      console.error('Error fetching data:', error);
+    } catch (error: any) {
+      console.log(error);
+      if (
+        error.response &&
+        (error.response.status === 401 || error.response.status === 403)
+      ) {
+        handleLogout();
+        navigate('/');
+      }
     }
   };
 
@@ -61,8 +69,15 @@ const AdminDashboard: React.FC = () => {
       if (response?.data?.success) {
         setServices(response?.data?.data);
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error fetching data:', error);
+      if (
+        error.response &&
+        (error.response.status === 401 || error.response.status === 403)
+      ) {
+        handleLogout();
+        navigate('/');
+      }
     }
   };
 
@@ -88,8 +103,15 @@ const AdminDashboard: React.FC = () => {
       if (response?.data?.success) {
         setUsers(response?.data?.data);
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error fetching data:', error);
+      if (
+        error.response &&
+        (error.response.status === 401 || error.response.status === 403)
+      ) {
+        handleLogout();
+        navigate('/');
+      }
     }
   };
 
