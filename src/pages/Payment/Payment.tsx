@@ -4,8 +4,7 @@ import axios from 'axios';
 import { getTopUpToken } from '../../hooks/handelAdminToken';
 import DefaultLayout from '../../layout/DefaultLayout';
 import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
-import PaginationButtons from '../../components/Pagination/PaginationButtons';
-import { AddPaymentModal } from './AddPaymentModal';
+import { AddPaymentModal } from '../ManualPayment/AddPaymentModal';
 
 const Payment = () => {
   const [datas, setDatas] = useState<any>([]);
@@ -40,21 +39,11 @@ const Payment = () => {
     setAddPaymentModal(false);
   };
 
-  console.log(datas);
-
-  // pagination calculate
-  const [currentPage, setCurrentPage] = useState(0);
-  const [perPage, setparePage] = useState(25);
-
-  const from = currentPage * perPage;
-  const to = from + perPage;
-  //  pagination end
-
   return (
     <DefaultLayout>
       <Breadcrumb pageName="Payment" />
 
-      <div>
+      {/* <div>
         <button
           type="button"
           onClick={() => setAddPaymentModal(true)}
@@ -62,7 +51,7 @@ const Payment = () => {
         >
           Add Payment
         </button>
-      </div>
+      </div> */}
       <div className="rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
         <div className="max-w-full overflow-x-auto">
           <table className="w-full table-auto">
@@ -73,37 +62,23 @@ const Payment = () => {
                 </th>
 
                 <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
-                  Email
-                </th>
-                <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
-                  Name
-                </th>
-                <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
                   apiKey
                 </th>
                 <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
                   pannelUrl
                 </th>
+                <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
+                  Action
+                </th>
               </tr>
             </thead>
             <tbody>
-              {datas?.slice(from, to).map((packageItem: any, key: any) => (
+              {datas?.map((packageItem: any, key: any) => (
                 <tr key={key}>
                   <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
                     <h5 className="font-medium text-black dark:text-white">
                       {key + 1}
                     </h5>
-                  </td>
-
-                  <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                    <p className="text-black dark:text-white">
-                      {packageItem?.userId?.email}
-                    </p>
-                  </td>
-                  <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                    <p className="text-black dark:text-white">
-                      {packageItem?.userId?.name}
-                    </p>
                   </td>
 
                   <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
@@ -116,6 +91,33 @@ const Payment = () => {
                     <p className="text-black dark:text-white">
                       {packageItem?.pannelUrl}
                     </p>
+                  </td>
+                  <td className="border-b border-[#eee] py-5 px-3 dark:border-strokedark">
+                    <div className="flex items-center space-x-3.5">
+                      {/* edit btn */}
+                      <button
+                        // onClick={() => openModal(packageItem)}
+                        className="hover:text-primary"
+                      >
+                        <svg
+                          className="w-6 h-6 text-gray-800  "
+                          aria-hidden="true"
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            stroke="currentColor"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="1"
+                            d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"
+                          />
+                        </svg>
+                      </button>
+                    </div>
                   </td>
                 </tr>
               ))}

@@ -1,4 +1,4 @@
 export const options = [
-  { value: 'INACTIVE', label: 'inactive' },
-  { value: 'ACTIVE', label: 'Active' },
+  { value: 'inactive', label: 'inactive' },
+  { value: 'active', label: 'active' },
 ];

@@ -6,6 +6,8 @@ import DefaultLayout from '../../layout/DefaultLayout';
 import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
 import { formatToLocalDate } from '../../hooks/formatDate';
 import { PuffLoader } from 'react-spinners';
+import { AddPaymentModal } from './AddPaymentModal';
+import UpdateManualPayment from './UpdateManualPayment';
 
 const ManualPayment = () => {
   const [datas, setDatas] = useState<any>();
@@ -35,7 +37,7 @@ const ManualPayment = () => {
     setLoading(true);
     try {
       const response = await axios.get(
-        'https://topup-app-server.vercel.app/api/v1/categorys/admin',
+        'https://topup-app-server.vercel.app/api/v1/manually-payment/admin-payment',
         {
           headers: {
             Authorization: `${token}`,
@@ -71,7 +73,7 @@ const ManualPayment = () => {
         try {
           setDeleteLoading(true);
           const response = await axios.delete(
-            `https://topup-app-server.vercel.app/api/v1/categorys/${id}`,
+            `https://topup-app-server.vercel.app/api/v1/manually-payment/${id}`,
             {
               headers: {
                 Authorization: token,
@@ -133,14 +135,19 @@ const ManualPayment = () => {
                 <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
                   Image
                 </th>
-                <th className="min-w-[170px] py-4 px-4 font-medium text-black dark:text-white">
-                  Catagory Name
+
+                <th className="min-w-[150px] py-4 px-4 font-medium text-black dark:text-white">
+                  paymentName
                 </th>
                 <th className="min-w-[150px] py-4 px-4 font-medium text-black dark:text-white">
-                  Description
+                  number
+                </th>
+
+                <th className="min-w-[150px] py-4 px-4 font-medium text-black dark:text-white">
+                  status
                 </th>
                 <th className="min-w-[150px] py-4 px-4 font-medium text-black dark:text-white">
-                  Updated
+                  date
                 </th>
 
                 <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
@@ -164,13 +171,17 @@ const ManualPayment = () => {
                   </td>
 
                   <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                    <p className="text-black dark:text-white">{data?.name}</p>
+                    <p className="text-black dark:text-white">
+                      {data?.paymentName}
+                    </p>
                   </td>
 
                   <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                    <p className="text-black dark:text-white">
-                      {data?.description}
-                    </p>
+                    <p className="text-black dark:text-white">{data?.number}</p>
+                  </td>
+
+                  <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                    <p className="text-black dark:text-white">{data?.status}</p>
                   </td>
                   <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                     <p className="text-black dark:text-white">
@@ -268,21 +279,21 @@ const ManualPayment = () => {
           )}
         </div>
       </div>
-      {/* <div>
-      {isModalOpen && (
-        <UpdateCatagoryModal
-          closeModal={closeModal}
-          updateItem={updateItem}
-          fetchData={fetchData}
-        />
-      )}
-    </div> */}
+      <div>
+        {isModalOpen && (
+          <UpdateManualPayment
+            closeModal={closeModal}
+            updateItem={updateItem}
+            fetchData={fetchData}
+          />
+        )}
+      </div>
 
-      {/* <div>
-      {addCatagoryModal && (
-        <AddCatagoryModal closeModal={closeAddModal} fetchData={fetchData} />
-      )}
-    </div> */}
+      <div>
+        {addCatagoryModal && (
+          <AddPaymentModal closeModal={closeAddModal} fetchData={fetchData} />
+        )}
+      </div>
     </DefaultLayout>
   );
 };

@@ -1,54 +1,53 @@
-import { ChangeEvent, useState } from 'react';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import React, { ChangeEvent, useState } from 'react';
 import Swal from 'sweetalert2';
-import { PuffLoader } from 'react-spinners';
 import { getTopUpToken } from '../../hooks/handelAdminToken';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { PuffLoader } from 'react-spinners';
+import SelectOptions from '../../Ui/SelectOptions';
+import { options } from '../options';
 
-export type ICatagory = {
-  img?: string | null;
-  description?: string;
-  name: string;
-  method: string;
-  phone: string;
-};
-
-interface IUpdatePackage {
-  fetchData: () => void;
-  closeModal: () => void;
-}
-
-export const AddPaymentModal = ({ fetchData, closeModal }: IUpdatePackage) => {
+const UpdateManualPayment = ({ fetchData, closeModal, updateItem }: any) => {
   const [lodaing, setLoading] = useState(false);
-  const { register, handleSubmit } = useForm<ICatagory>();
+  const [formState, setFormState] = useState({ ...updateItem });
+  const { register, handleSubmit, control } = useForm<any>();
 
-  const onSubmit: SubmitHandler<ICatagory> = async (data: ICatagory) => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    setFormState({ ...formState, [name]: value });
+  };
+  const onSubmit: SubmitHandler<any> = async (data: any) => {
     setLoading(true);
-    console.log(data);
+
+    const newData = {
+      ...data,
+      id: updateItem?._id,
+      status: data?.status?.value,
+    };
 
     try {
       const token = getTopUpToken();
-      console.log(token);
 
-      const response = await fetch(` `, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `${token}`,
+      const response = await fetch(
+        `https://topup-app-server.vercel.app/api/v1/manually-payment/${updateItem._id}`,
+        {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `${token}`,
+          },
+          body: JSON.stringify(newData),
         },
-        body: JSON.stringify(data),
-      });
-      console.log(response);
-
+      );
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
       const responseData = await response.json();
-      setLoading(false);
       if (responseData.success) {
+        setLoading(false);
         fetchData();
         Swal.fire({
           title: 'success',
-          text: 'Successfully Added',
+          text: 'Successfully updated Payment',
           icon: 'success',
         }).then(() => {
           closeModal();
@@ -76,7 +75,7 @@ export const AddPaymentModal = ({ fetchData, closeModal }: IUpdatePackage) => {
           <div className="min-w-full w-[370px] lg:w-[600px] border-b border-stroke py-4 px-1 dark:border-strokedark">
             <div className="w-full flex justify-between px-3 place-items-center py-3">
               <h2 className="text-xl font-bold text-black dark:text-white">
-                Add Payment
+                Update Manual Payment
               </h2>
 
               <strong
@@ -95,22 +94,18 @@ export const AddPaymentModal = ({ fetchData, closeModal }: IUpdatePackage) => {
                 <p>Payment Method </p>
                 <input
                   className="w-full rounded border border-stroke bg-gray py-3 pl-3 pr-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
-                  {...register('method', { required: true })}
+                  {...register('paymentName', { required: true })}
+                  value={formState.paymentName}
+                  onChange={handleChange}
                 />
               </div>
               <div>
-                <p>Description</p>
+                <p>number</p>
                 <input
                   className="w-full rounded border border-stroke bg-gray py-3 pl-3 pr-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
-                  {...register('description', { required: true })}
-                />
-              </div>
-
-              <div>
-                <p>Phone</p>
-                <input
-                  className="w-full rounded border border-stroke bg-gray py-3 pl-3 pr-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
-                  {...register('phone', { required: true })}
+                  {...register('number', { required: true })}
+                  value={formState.number}
+                  onChange={handleChange}
                 />
               </div>
 
@@ -119,17 +114,19 @@ export const AddPaymentModal = ({ fetchData, closeModal }: IUpdatePackage) => {
                 <input
                   className="w-full rounded border border-stroke bg-gray py-3 pl-3 pr-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
                   {...register('img', { required: true })}
+                  value={formState.img}
+                  onChange={handleChange}
                 />
               </div>
 
-              {/* <SelectOptions
+              <SelectOptions
                 control={control}
                 options={options}
                 label="Status"
                 name="status"
                 defaultValue={formState.status}
                 placeholder={'Select...'}
-              /> */}
+              />
 
               <div className="flex justify-center gap-4">
                 <div>
@@ -159,3 +156,5 @@ export const AddPaymentModal = ({ fetchData, closeModal }: IUpdatePackage) => {
     </div>
   );
 };
+
+export default UpdateManualPayment;
