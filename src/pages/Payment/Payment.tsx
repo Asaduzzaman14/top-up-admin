@@ -4,11 +4,22 @@ import axios from 'axios';
 import { getTopUpToken } from '../../hooks/handelAdminToken';
 import DefaultLayout from '../../layout/DefaultLayout';
 import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
-import { AddPaymentModal } from '../ManualPayment/AddPaymentModal';
+import { PayUpdateModal } from './PayUpdateModal';
 
 const Payment = () => {
   const [datas, setDatas] = useState<any>([]);
-  const [addPaymentModal, setAddPaymentModal] = useState(false);
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [updateItem, setUpdateItem] = useState<any>();
+
+  const openModal = (data: any) => {
+    setUpdateItem(data);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
 
   const token = getTopUpToken();
 
@@ -34,10 +45,6 @@ const Payment = () => {
   useEffect(() => {
     fetchData();
   }, []);
-
-  const closeAddModal = () => {
-    setAddPaymentModal(false);
-  };
 
   return (
     <DefaultLayout>
@@ -68,6 +75,9 @@ const Payment = () => {
                   pannelUrl
                 </th>
                 <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
+                  Status
+                </th>
+                <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
                   Action
                 </th>
               </tr>
@@ -92,11 +102,16 @@ const Payment = () => {
                       {packageItem?.pannelUrl}
                     </p>
                   </td>
+                  <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                    <p className="text-black dark:text-white">
+                      {packageItem?.status}
+                    </p>
+                  </td>
                   <td className="border-b border-[#eee] py-5 px-3 dark:border-strokedark">
                     <div className="flex items-center space-x-3.5">
                       {/* edit btn */}
                       <button
-                        // onClick={() => openModal(packageItem)}
+                        onClick={() => openModal(packageItem)}
                         className="hover:text-primary"
                       >
                         <svg
@@ -127,8 +142,12 @@ const Payment = () => {
       </div>
 
       <div>
-        {addPaymentModal && (
-          <AddPaymentModal closeModal={closeAddModal} fetchData={fetchData} />
+        {isModalOpen && (
+          <PayUpdateModal
+            closeModal={closeModal}
+            updateItem={updateItem}
+            fetchData={fetchData}
+          />
         )}
       </div>
     </DefaultLayout>

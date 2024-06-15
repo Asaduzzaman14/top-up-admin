@@ -1,34 +1,41 @@
-import React, { ChangeEvent, useState } from 'react';
-import Swal from 'sweetalert2';
-import { getTopUpToken } from '../../hooks/handelAdminToken';
+import { ChangeEvent, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import Swal from 'sweetalert2';
 import { PuffLoader } from 'react-spinners';
+import { getTopUpToken } from '../../hooks/handelAdminToken';
 import SelectOptions from '../../Ui/SelectOptions';
 import { options } from '../options';
 
-const UpdateManualPayment = ({ fetchData, closeModal, updateItem }: any) => {
+export type IPayment = {
+  apiKey: string;
+  pannelUrl: string;
+  status: any;
+};
+
+export const PayUpdateModal = ({ fetchData, closeModal, updateItem }: any) => {
   const [lodaing, setLoading] = useState(false);
   const [formState, setFormState] = useState({ ...updateItem });
-  const { register, handleSubmit, control } = useForm<any>();
+  const { register, handleSubmit, control } = useForm<IPayment>();
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setFormState({ ...formState, [name]: value });
   };
-  const onSubmit: SubmitHandler<any> = async (data: any) => {
+  const onSubmit: SubmitHandler<IPayment> = async (data: IPayment) => {
     setLoading(true);
 
     const newData = {
       ...data,
-      // id: updateItem?._id,
       status: data?.status?.value,
     };
 
+    console.log(newData);
+    // return;
     try {
       const token = getTopUpToken();
 
       const response = await fetch(
-        `https://topup-app-server.vercel.app/api/v1/manually-payment/${updateItem._id}`,
+        `http://localhost:5000/api/v1/payment/${updateItem._id}`,
         {
           method: 'PATCH',
           headers: {
@@ -47,7 +54,7 @@ const UpdateManualPayment = ({ fetchData, closeModal, updateItem }: any) => {
         fetchData();
         Swal.fire({
           title: 'success',
-          text: 'Successfully updated Payment',
+          text: 'Successfully updated Pay',
           icon: 'success',
         }).then(() => {
           closeModal();
@@ -75,7 +82,7 @@ const UpdateManualPayment = ({ fetchData, closeModal, updateItem }: any) => {
           <div className="min-w-full w-[370px] lg:w-[600px] border-b border-stroke py-4 px-1 dark:border-strokedark">
             <div className="w-full flex justify-between px-3 place-items-center py-3">
               <h2 className="text-xl font-bold text-black dark:text-white">
-                Update Manual Payment
+                Update Payment Method
               </h2>
 
               <strong
@@ -91,34 +98,24 @@ const UpdateManualPayment = ({ fetchData, closeModal, updateItem }: any) => {
               className="flex  flex-col w-full gap-5.5 p-6.5"
             >
               <div>
-                <p>Payment Method </p>
+                <p>Api Key</p>
                 <input
                   className="w-full rounded border border-stroke bg-gray py-3 pl-3 pr-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
-                  {...register('paymentName', { required: true })}
-                  value={formState.paymentName}
-                  onChange={handleChange}
-                />
-              </div>
-              <div>
-                <p>number</p>
-                <input
-                  className="w-full rounded border border-stroke bg-gray py-3 pl-3 pr-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
-                  {...register('number', { required: true })}
-                  value={formState.number}
+                  {...register('apiKey', { required: true })}
+                  value={formState.apiKey}
                   onChange={handleChange}
                 />
               </div>
 
               <div>
-                <p>Image url</p>
+                <p>Pannel Url</p>
                 <input
                   className="w-full rounded border border-stroke bg-gray py-3 pl-3 pr-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
-                  {...register('img', { required: true })}
-                  value={formState.img}
+                  {...register('pannelUrl', { required: true })}
+                  value={formState.pannelUrl}
                   onChange={handleChange}
                 />
               </div>
-
               <SelectOptions
                 control={control}
                 options={options}
@@ -141,13 +138,6 @@ const UpdateManualPayment = ({ fetchData, closeModal, updateItem }: any) => {
                     </button>
                   )}
                 </div>
-                <button
-                  type="button"
-                  onClick={() => closeModal()}
-                  className="btn flex justify-center rounded bg-danger py-2 px-6 font-medium text-gray hover:shadow-1"
-                >
-                  Cancel
-                </button>
               </div>
             </form>
           </div>
@@ -156,5 +146,3 @@ const UpdateManualPayment = ({ fetchData, closeModal, updateItem }: any) => {
     </div>
   );
 };
-
-export default UpdateManualPayment;

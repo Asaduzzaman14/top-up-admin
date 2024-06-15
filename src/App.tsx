@@ -181,6 +181,16 @@ function App() {
           />
 
           <Route
+            path="/terms-and-condition"
+            element={
+              <>
+                <PageTitle title="Terms and condition" />
+                <Profile />
+              </>
+            }
+          />
+
+          <Route
             path="/auth/signin"
             element={
               <>
