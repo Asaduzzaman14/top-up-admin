@@ -22,6 +22,9 @@ import PendingOrders from './pages/Orders/PendingOrders';
 import RejectedOrders from './pages/Orders/RejectedOrders';
 import Deposits from './pages/Deposits/Deposits';
 import ManualPayment from './pages/ManualPayment/ManualPayment';
+import TermsAndCondition from './pages/TermsAndCondition';
+import PrivacyAndPolicy from './pages/PrivacyAndPolicy';
+import Setting from './pages/Setting';
 
 function App() {
   const { pathname } = useLocation();
@@ -181,11 +184,30 @@ function App() {
           />
 
           <Route
+            path="/setting"
+            element={
+              <>
+                <PageTitle title="setting" />
+                <Setting />
+              </>
+            }
+          />
+
+          <Route
             path="/terms-and-condition"
             element={
               <>
                 <PageTitle title="Terms and condition" />
-                <Profile />
+                <TermsAndCondition />
+              </>
+            }
+          />
+          <Route
+            path="/privacy-and-policy"
+            element={
+              <>
+                <PageTitle title="Privacy and policy" />
+                <PrivacyAndPolicy />
               </>
             }
           />
