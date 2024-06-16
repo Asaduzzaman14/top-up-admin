@@ -42,7 +42,7 @@ const Products = () => {
     setLoading(true);
     try {
       const response = await axios.get(
-        'https://topup-app-server.vercel.app/api/v1/products',
+        'http://localhost:5000/api/v1/products',
         {
           headers: {
             Authorization: `${token}`,
@@ -78,7 +78,7 @@ const Products = () => {
       if (result.isConfirmed) {
         try {
           const response = await axios.delete(
-            `https://topup-app-server.vercel.app/api/v1/products/${id}`,
+            `http://localhost:5000/api/v1/products/${id}`,
             {
               headers: {
                 Authorization: token,

@@ -24,7 +24,7 @@ const Setting = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          'https://topup-app-server.vercel.app/api/v1/notice',
+          'http://localhost:5000/api/v1/notice',
           {
             headers: {
               Authorization: `${token}`,
@@ -61,7 +61,7 @@ const Setting = () => {
     console.log(data);
     try {
       const response = await fetch(
-        `https://topup-app-server.vercel.app/api/v1/notice/${stakeLevelBonus[0]._id}`,
+        `http://localhost:5000/api/v1/notice/${stakeLevelBonus[0]._id}`,
         {
           method: 'PATCH',
           headers: {

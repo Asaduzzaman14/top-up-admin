@@ -5,11 +5,14 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import BannerUpdate from './BannerUpdate';
 import Addbanners from './Addbanners';
+import Swal from 'sweetalert2';
 
 export type IBanner = {
   id: string;
   img: string;
+  url: string;
 };
+
 const Banner = () => {
   const [datas, setDatas] = useState<IBanner[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -33,15 +36,12 @@ const Banner = () => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get(
-        'https://topup-app-server.vercel.app/api/v1/banners',
-        {
-          headers: {
-            Authorization: `${token}`,
-            'Content-Type': 'application/json',
-          },
+      const response = await axios.get('http://localhost:5000/api/v1/banners', {
+        headers: {
+          Authorization: `${token}`,
+          'Content-Type': 'application/json',
         },
-      );
+      });
 
       if (response?.data?.success) {
         setDatas(response?.data?.data);
@@ -55,8 +55,53 @@ const Banner = () => {
     fetchData();
   }, []);
 
-  const deleteBanner = (d: any) => {};
-
+  const deleteItems = async (id: string) => {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          const response = await axios.delete(
+            `http://localhost:5000/api/v1/banners/${id}`,
+            {
+              headers: {
+                Authorization: token,
+                'Content-Type': 'application/json',
+              },
+            },
+          );
+          fetchData();
+          if (response.data.success) {
+            Swal.fire({
+              title: 'Deleted!',
+              text: 'Your service has been deleted.',
+              icon: 'success',
+            });
+          } else {
+            Swal.fire({
+              title: 'Error!',
+              text:
+                response.data.message || 'An error occurred while deleting.',
+              icon: 'error',
+            });
+          }
+        } catch (error) {
+          console.error('Error deleting category:', error);
+          Swal.fire({
+            title: 'Error!',
+            text: 'An error occurred while deleting.',
+            icon: 'error',
+          });
+        }
+      }
+    });
+  };
   return (
     <DefaultLayout>
       <Breadcrumb pageName="Banners" />
@@ -82,6 +127,9 @@ const Banner = () => {
                   Image
                 </th>
                 <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
+                  Others Url
+                </th>
+                <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
                   Action
                 </th>
               </tr>
@@ -101,12 +149,16 @@ const Banner = () => {
                       alt=""
                     />
                   </td>
+                  <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                    <p className="text-black dark:text-white">{data?.url}</p>
+                  </td>
+
                   <td className="border-b border-[#eee] py-5 px-3 dark:border-strokedark">
                     <div className="flex items-center space-x-3.5">
                       {/* details btn */}
 
                       <button
-                        onClick={() => deleteBanner(data?._id)}
+                        onClick={() => deleteItems(data?._id)}
                         className="hover:text-primary"
                       >
                         <svg

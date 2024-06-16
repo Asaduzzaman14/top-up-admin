@@ -38,7 +38,7 @@ export const UpdateCatagoryModal = ({
       const token = getTopUpToken();
 
       const response = await fetch(
-        `https://topup-app-server.vercel.app/api/v1/categorys/${updateItem._id}`,
+        `http://localhost:5000/api/v1/categorys/${updateItem._id}`,
         {
           method: 'PATCH',
           headers: {

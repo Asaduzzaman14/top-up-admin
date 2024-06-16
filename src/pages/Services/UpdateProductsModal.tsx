@@ -37,7 +37,7 @@ export const UpdateProductsModal = ({
     setLoading(true);
     try {
       const response = await fetch(
-        `https://topup-app-server.vercel.app/api/v1/products/${updateItem?._id}`,
+        `http://localhost:5000/api/v1/products/${updateItem?._id}`,
         {
           method: 'PATCH',
           headers: {

@@ -19,7 +19,7 @@ const BannerUpdate = ({ fetchData, closeModal, updateItem }: any) => {
     setLoading(true);
     try {
       const response = await fetch(
-        `https://topup-app-server.vercel.app/api/v1/banners/${updateItem?._id}`,
+        `http://localhost:5000/api/v1/banners/${updateItem?._id}`,
         {
           method: 'PATCH',
           headers: {
@@ -29,6 +29,7 @@ const BannerUpdate = ({ fetchData, closeModal, updateItem }: any) => {
           body: JSON.stringify(data),
         },
       );
+      fetchData();
 
       if (!response.ok) {
         throw new Error('Network response was not ok');
@@ -36,10 +37,9 @@ const BannerUpdate = ({ fetchData, closeModal, updateItem }: any) => {
       const responseData = await response.json();
       if (responseData.success) {
         setLoading(false);
-        //   fetchData();
         Swal.fire({
           title: 'Success',
-          text: 'Successfully product updated',
+          text: 'Successfully banner updated',
           icon: 'success',
         }).then(() => {
           closeModal();
@@ -90,6 +90,16 @@ const BannerUpdate = ({ fetchData, closeModal, updateItem }: any) => {
                   className="w-full rounded border border-stroke bg-gray py-3 pl-3 pr-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
                   {...register('img', { required: true })}
                   defaultValue={formState.img}
+                  onChange={handleChange}
+                />
+              </div>
+
+              <div>
+                <p>Others Url</p>
+                <input
+                  className="w-full rounded border border-stroke bg-gray py-3 pl-3 pr-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
+                  {...register('url', { required: true })}
+                  defaultValue={formState.url}
                   onChange={handleChange}
                 />
               </div>

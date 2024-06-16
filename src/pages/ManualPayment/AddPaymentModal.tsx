@@ -18,7 +18,7 @@ export const AddPaymentModal = ({ fetchData, closeModal }: any) => {
       console.log(token);
 
       const response = await fetch(
-        `https://topup-app-server.vercel.app/api/v1/manually-payment`,
+        `http://localhost:5000/api/v1/manually-payment`,
         {
           method: 'POST',
           headers: {

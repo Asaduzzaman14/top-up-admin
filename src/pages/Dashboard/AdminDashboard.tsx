@@ -22,7 +22,7 @@ const AdminDashboard: React.FC = () => {
     setLoading(true);
     try {
       const response = await axios.get(
-        'https://topup-app-server.vercel.app/api/v1/categorys/admin',
+        'http://localhost:5000/api/v1/categorys/admin',
         {
           headers: {
             Authorization: `${token}`,
@@ -55,7 +55,7 @@ const AdminDashboard: React.FC = () => {
     setLoading(true);
     try {
       const response = await axios.get(
-        'https://topup-app-server.vercel.app/api/v1/products',
+        'http://localhost:5000/api/v1/products',
         {
           headers: {
             Authorization: `${token}`,
@@ -89,7 +89,7 @@ const AdminDashboard: React.FC = () => {
     setLoading(true);
     try {
       const response = await axios.get(
-        'https://topup-app-server.vercel.app/api/v1/user/admin',
+        'http://localhost:5000/api/v1/user/admin',
         {
           headers: {
             Authorization: `${token}`,
@@ -123,7 +123,7 @@ const AdminDashboard: React.FC = () => {
   const fetchOrderData = async () => {
     try {
       const response = await axios.get(
-        'https://topup-app-server.vercel.app/api/v1/orders/admin',
+        'http://localhost:5000/api/v1/orders/admin',
         {
           headers: {
             Authorization: `${token}`,

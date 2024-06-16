@@ -52,7 +52,7 @@ const Deposits = () => {
   const fetchData = async () => {
     try {
       const response = await axios.get(
-        'https://topup-app-server.vercel.app/api/v1/deposit/admin',
+        'http://localhost:5000/api/v1/deposit/admin',
         {
           headers: {
             Authorization: `${token}`,

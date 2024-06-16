@@ -15,17 +15,14 @@ const Addbanners = ({ fetchData, closeModal }: any) => {
     setLoading(true);
 
     try {
-      const response = await fetch(
-        `https://topup-app-server.vercel.app/api/v1/banners`,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `${token}`,
-          },
-          body: JSON.stringify(data),
+      const response = await fetch(`http://localhost:5000/api/v1/banners`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `${token}`,
         },
-      );
+        body: JSON.stringify(data),
+      });
 
       const responseData = await response.json();
 
@@ -85,6 +82,13 @@ const Addbanners = ({ fetchData, closeModal }: any) => {
                 <input
                   className="w-full rounded border border-stroke bg-gray py-3 pl-3 pr-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
                   {...register('img', { required: true })}
+                />
+              </div>
+              <div>
+                <p>Others Url</p>
+                <input
+                  className="w-full rounded border border-stroke bg-gray py-3 pl-3 pr-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
+                  {...register('url', { required: true })}
                 />
               </div>
 

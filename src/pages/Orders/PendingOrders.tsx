@@ -37,7 +37,7 @@ const PendingOrders = () => {
   const fetchData = async () => {
     try {
       const response = await axios.get(
-        'https://topup-app-server.vercel.app/api/v1/orders/admin',
+        'http://localhost:5000/api/v1/orders/admin',
         {
           headers: {
             Authorization: `${token}`,
@@ -70,7 +70,7 @@ const PendingOrders = () => {
       if (result.isConfirmed) {
         try {
           const response = await axios.delete(
-            `https://topup-app-server.vercel.app/api/v1/orders/${id}`,
+            `http://localhost:5000/api/v1/orders/${id}`,
             {
               headers: {
                 Authorization: token,
