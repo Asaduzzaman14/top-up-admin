@@ -6,6 +6,7 @@ import axios from 'axios';
 import BannerUpdate from './BannerUpdate';
 import Addbanners from './Addbanners';
 import Swal from 'sweetalert2';
+import { PuffLoader } from 'react-spinners';
 
 export type IBanner = {
   id: string;
@@ -218,6 +219,9 @@ const Banner = () => {
           </table>
         </div>
       </div>
+      {datas.length == 0 && (
+        <PuffLoader className="mx-auto" color="#00ddff" size={40} />
+      )}
 
       <div>
         {isModalOpen && (

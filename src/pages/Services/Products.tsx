@@ -9,6 +9,7 @@ import { PuffLoader } from 'react-spinners';
 import Swal from 'sweetalert2';
 import { ViewModal } from './ViewModal';
 import PaginationButtons from '../../components/Pagination/PaginationButtons';
+import { NavLink } from 'react-router-dom';
 
 const Products = () => {
   const [datas, setDatas] = useState<any>([]);
@@ -124,6 +125,14 @@ const Products = () => {
     <DefaultLayout>
       <Breadcrumb pageName="Products" />
 
+      <NavLink to="/add-service">
+        <button
+          type="button"
+          className="btn mb-3 flex justify-center rounded bg-strokedark py-2 px-6 font-medium text-gray hover:shadow-1"
+        >
+          Add Prodict
+        </button>
+      </NavLink>
       <div className="rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
         <div className="max-w-full overflow-x-auto">
           <table className="w-full table-auto">
@@ -144,9 +153,6 @@ const Products = () => {
                   Price
                 </th>
 
-                <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
-                  Diamond
-                </th>
                 <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
                   Description
                 </th>
@@ -181,12 +187,6 @@ const Products = () => {
                   <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                     <p className="text-black dark:text-white">
                       {product?.price}
-                    </p>
-                  </td>
-
-                  <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                    <p className="text-black dark:text-white">
-                      {product?.diamond}
                     </p>
                   </td>
 

@@ -7,6 +7,7 @@ import { UpdateDeposti } from './UpdateDeposit';
 import PaginationButtons from '../../components/Pagination/PaginationButtons';
 import { useNavigate } from 'react-router-dom';
 import { formatToLocalDate } from '../../hooks/formatDate';
+import { PuffLoader } from 'react-spinners';
 
 export type IDeposit = {
   _id: 'string';
@@ -33,6 +34,7 @@ export type IUser = {
 
 const Deposits = () => {
   const [datas, setDatas] = useState<IDeposit[]>([]);
+  const [loading, setLoading] = useState(false);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [updateItem, setUpdateItem] = useState<IDeposit>();
@@ -50,6 +52,7 @@ const Deposits = () => {
   const token = getTopUpToken();
 
   const fetchData = async () => {
+    setLoading(true);
     try {
       const response = await axios.get(
         'http://localhost:5000/api/v1/deposit/admin',
@@ -60,6 +63,8 @@ const Deposits = () => {
           },
         },
       );
+      setLoading(false);
+
       if (response?.data?.success) {
         setDatas(response?.data?.data);
       }
@@ -258,7 +263,9 @@ const Deposits = () => {
           </table>
         </div>
       </div>
-
+      {datas.length == 0 && loading && (
+        <PuffLoader className="mx-auto" color="#00ddff" size={40} />
+      )}
       <div>
         {isModalOpen && (
           <UpdateDeposti

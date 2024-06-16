@@ -101,7 +101,6 @@ export const UpdateProductsModal = ({
               onSubmit={handleSubmit(onSubmit)}
               className="flex  flex-col w-full gap-5.5 p-6.5"
             >
-              <img className="w-12 h-12 mx-auto" src={formState?.img} alt="" />
               <div>
                 <p>Image Link</p>
                 <input

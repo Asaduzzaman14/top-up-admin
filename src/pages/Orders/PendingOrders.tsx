@@ -6,6 +6,7 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 import OrderUpdateModal from './OrderUpdateModal';
 import { formatToLocalDate } from '../../hooks/formatDate';
+import { PuffLoader } from 'react-spinners';
 
 export type IOrder = {
   _id: string;
@@ -21,6 +22,7 @@ export type IOrder = {
 
 const PendingOrders = () => {
   const [datas, setDatas] = useState<IOrder[]>([]);
+  const [loading, setLoading] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [updateItem, setUpdateItem] = useState<IOrder>();
 
@@ -35,6 +37,7 @@ const PendingOrders = () => {
   const token = getTopUpToken();
 
   const fetchData = async () => {
+    setLoading(true);
     try {
       const response = await axios.get(
         'http://localhost:5000/api/v1/orders/admin',
@@ -45,6 +48,7 @@ const PendingOrders = () => {
           },
         },
       );
+      setLoading(false);
       if (response?.data?.success) {
         setDatas(response?.data?.data);
       }
@@ -280,6 +284,9 @@ const PendingOrders = () => {
           </table>
         </div>
       </div>
+      {datas.length == 0 && loading && (
+        <PuffLoader className="mx-auto" color="#00ddff" size={40} />
+      )}
       <div>
         {isModalOpen && (
           <OrderUpdateModal
