@@ -12,7 +12,6 @@ interface IUpdatePackage {
 type IService = {
   name: string;
   phone: string;
-  img: string;
   price: string;
   diamond: string;
   description: string;
@@ -101,16 +100,6 @@ export const UpdateProductsModal = ({
               onSubmit={handleSubmit(onSubmit)}
               className="flex  flex-col w-full gap-5.5 p-6.5"
             >
-              <div>
-                <p>Image Link</p>
-                <input
-                  className="w-full rounded border border-stroke bg-gray py-3 pl-3 pr-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
-                  {...register('img', { required: true })}
-                  defaultValue={formState.img}
-                  onChange={handleChange}
-                />
-              </div>
-
               <div>
                 <p>Product Name</p>
                 <input

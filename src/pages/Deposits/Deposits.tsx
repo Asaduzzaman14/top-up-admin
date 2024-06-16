@@ -8,6 +8,8 @@ import PaginationButtons from '../../components/Pagination/PaginationButtons';
 import { useNavigate } from 'react-router-dom';
 import { formatToLocalDate } from '../../hooks/formatDate';
 import { PuffLoader } from 'react-spinners';
+import SearchInput from '../../components/SearchInput';
+import Swal from 'sweetalert2';
 
 export type IDeposit = {
   _id: 'string';
@@ -35,6 +37,7 @@ export type IUser = {
 const Deposits = () => {
   const [datas, setDatas] = useState<IDeposit[]>([]);
   const [loading, setLoading] = useState(false);
+  const [search, setSearch] = useState('');
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [updateItem, setUpdateItem] = useState<IDeposit>();
@@ -94,12 +97,71 @@ const Deposits = () => {
   const from = currentPage * perPage;
   const to = from + perPage;
   //  pagination end
+  console.log(datas);
+
+  const filteredData = datas?.filter(
+    (data: any) =>
+      data?.playerId?.toLowerCase().includes(search.toLowerCase()) ||
+      data?.orderNumber?.toLowerCase().includes(search.toLowerCase()) ||
+      data?.userId?.email?.toLowerCase().includes(search.toLowerCase()) ||
+      data?.trxId?.toLowerCase().includes(search.toLowerCase()),
+  );
+  const deleteItems = async (id: string) => {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          const response = await axios.delete(
+            `http://localhost:5000/api/v1/deposit/${id}`,
+            {
+              headers: {
+                Authorization: token,
+                'Content-Type': 'application/json',
+              },
+            },
+          );
+          fetchData();
+          if (response.data.success) {
+            Swal.fire({
+              title: 'Deleted!',
+              text: 'Your service has been deleted.',
+              icon: 'success',
+            });
+          } else {
+            Swal.fire({
+              title: 'Error!',
+              text:
+                response.data.message || 'An error occurred while deleting.',
+              icon: 'error',
+            });
+          }
+        } catch (error) {
+          console.error('Error deleting category:', error);
+          Swal.fire({
+            title: 'Error!',
+            text: 'An error occurred while deleting.',
+            icon: 'error',
+          });
+        }
+      }
+    });
+  };
 
   return (
     <DefaultLayout>
       <Breadcrumb pageName="Deposits" />
 
       <div className="rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
+        <div className="max-w-full w-100 mb-4">
+          <SearchInput placeholder="Search..." setSearch={setSearch} />
+        </div>
         <div className="max-w-full overflow-x-auto">
           <table className="w-full table-auto">
             <thead>
@@ -139,7 +201,7 @@ const Deposits = () => {
               </tr>
             </thead>
             <tbody>
-              {datas
+              {filteredData
                 ?.reverse()
                 ?.slice(from, to)
                 ?.map((deposti: IDeposit, key: number) => (
@@ -198,7 +260,7 @@ const Deposits = () => {
                     <td className="border-b border-[#eee] py-5 px-3 dark:border-strokedark">
                       <div className="flex items-center space-x-3.5">
                         <button
-                          // onClick={() => deleteCategory(data?._id)}
+                          onClick={() => deleteItems(deposti?._id)}
                           className="hover:text-primary"
                         >
                           <svg

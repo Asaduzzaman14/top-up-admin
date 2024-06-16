@@ -143,6 +143,15 @@ const AdminDashboard: React.FC = () => {
     fetchOrderData();
   }, []);
 
+  let totalSell = 0;
+  for (let index = 0; index < orders.length; index++) {
+    totalSell += Number(orders[index].price);
+  }
+
+  let balance = 0;
+  for (let index = 0; index < users.length; index++) {
+    balance += Number(users[index].wallet);
+  }
   return (
     <DefaultLayout>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-7.5">
@@ -177,6 +186,24 @@ const AdminDashboard: React.FC = () => {
           <CardDataStats
             title="All Orders"
             total={`${orders ? orders?.length : '00'}`}
+          >
+            <UserIcon />
+          </CardDataStats>
+        </Link>
+
+        <Link to={'/all-orders'}>
+          <CardDataStats
+            title="Total Sell"
+            total={`${orders ? totalSell : '00'}`}
+          >
+            <UserIcon />
+          </CardDataStats>
+        </Link>
+
+        <Link to={'/all-orders'}>
+          <CardDataStats
+            title="All users wallet"
+            total={`${users ? balance : '00'}`}
           >
             <UserIcon />
           </CardDataStats>

@@ -188,18 +188,6 @@ const AddProducts = () => {
             ></textarea>
           </div>
 
-          <div className="w-full xl:w-1/2">
-            <label className="mt-2.5 mb-0.5 block text-black dark:text-white">
-              Image
-            </label>
-            <input
-              type="string"
-              {...register('img', { required: true })}
-              placeholder="image link"
-              className="w-full rounded border-[1.5px] border-boxdark-2 bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-            />
-          </div>
-
           <Button cs="px-10 my-5 bg-primary" btnName="Submit"></Button>
         </form>
       </div>

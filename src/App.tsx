@@ -25,6 +25,7 @@ import ManualPayment from './pages/ManualPayment/ManualPayment';
 import TermsAndCondition from './pages/TermsAndCondition';
 import PrivacyAndPolicy from './pages/PrivacyAndPolicy';
 import Setting from './pages/Setting';
+import CompleteOrder from './pages/Orders/CompleteOrder';
 
 function App() {
   const { pathname } = useLocation();
@@ -118,6 +119,15 @@ function App() {
               <>
                 <PageTitle title="Pending Orders" />
                 <PendingOrders />
+              </>
+            }
+          />
+          <Route
+            path="/order/complete-orders"
+            element={
+              <>
+                <PageTitle title="Complete Orders" />
+                <CompleteOrder />
               </>
             }
           />

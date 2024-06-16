@@ -117,7 +117,7 @@ export const UpdateDeposti = ({ fetchData, closeModal, updateItem }: any) => {
                     Pending
                   </option>
                   <option
-                    value="complete"
+                    value="completed"
                     className="text-body dark:text-bodydark"
                   >
                     Complete

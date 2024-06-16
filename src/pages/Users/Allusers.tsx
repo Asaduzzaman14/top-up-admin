@@ -5,13 +5,15 @@ import axios from 'axios';
 import { getTopUpToken } from '../../hooks/handelAdminToken';
 import PaginationButtons from '../../components/Pagination/PaginationButtons';
 import { PuffLoader } from 'react-spinners';
+import SearchInput from '../../components/SearchInput';
 
 const Allusers = () => {
   const [datas, setDatas] = useState<any>([]);
   const [loading, setLoading] = useState<any>(false);
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [updateItem, setUpdateItem] = useState<any>();
+  const [currentPage, setCurrentPage] = useState(0);
+  const [perPage, setparePage] = useState(25);
+  const [search, setSearch] = useState('');
 
   const token = getTopUpToken();
 
@@ -44,18 +46,24 @@ const Allusers = () => {
   }, []);
 
   // pagination calculate
-  const [currentPage, setCurrentPage] = useState(0);
-  const [perPage, setparePage] = useState(25);
 
   const from = currentPage * perPage;
   const to = from + perPage;
   //  pagination end
-
+  const filteredData = datas?.filter(
+    (data: any) =>
+      data?.name?.toLowerCase().includes(search.toLowerCase()) ||
+      data?.phone?.toLowerCase().includes(search.toLowerCase()) ||
+      data?.email?.toLowerCase().includes(search.toLowerCase()),
+  );
   return (
     <DefaultLayout>
       <Breadcrumb pageName="Users" />
 
       <div className="rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
+        <div className="max-w-full w-100 mb-4">
+          <SearchInput placeholder="Search..." setSearch={setSearch} />
+        </div>
         <div className="max-w-full overflow-x-auto">
           <table className="w-full table-auto">
             <thead>
@@ -79,39 +87,41 @@ const Allusers = () => {
               </tr>
             </thead>
             <tbody>
-              {datas?.slice(from, to).map((packageItem: any, key: any) => (
-                <tr key={key}>
-                  <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
-                    <h5 className="font-medium text-black dark:text-white">
-                      {key + 1}
-                    </h5>
-                  </td>
+              {filteredData
+                ?.slice(from, to)
+                .map((packageItem: any, key: any) => (
+                  <tr key={key}>
+                    <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
+                      <h5 className="font-medium text-black dark:text-white">
+                        {key + 1}
+                      </h5>
+                    </td>
 
-                  <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                    <p className="text-black dark:text-white">
-                      {packageItem?.name}
-                    </p>
-                  </td>
+                    <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                      <p className="text-black dark:text-white">
+                        {packageItem?.name}
+                      </p>
+                    </td>
 
-                  <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                    <p className="text-black dark:text-white">
-                      {packageItem?.email}
-                    </p>
-                  </td>
+                    <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                      <p className="text-black dark:text-white">
+                        {packageItem?.email}
+                      </p>
+                    </td>
 
-                  <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                    <p className="text-black dark:text-white">
-                      {packageItem?.wallet}
-                    </p>
-                  </td>
+                    <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                      <p className="text-black dark:text-white">
+                        {packageItem?.wallet}
+                      </p>
+                    </td>
 
-                  <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                    <p className="text-black dark:text-white">
-                      {packageItem?.phone}
-                    </p>
-                  </td>
-                </tr>
-              ))}
+                    <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                      <p className="text-black dark:text-white">
+                        {packageItem?.phone}
+                      </p>
+                    </td>
+                  </tr>
+                ))}
             </tbody>
           </table>
         </div>
