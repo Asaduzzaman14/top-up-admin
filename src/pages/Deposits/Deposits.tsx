@@ -58,7 +58,7 @@ const Deposits = () => {
     setLoading(true);
     try {
       const response = await axios.get(
-        'http://localhost:5000/api/v1/deposit/admin',
+        'https://topup-app-server.vercel.app/api/v1/deposit/admin',
         {
           headers: {
             Authorization: `${token}`,
@@ -119,7 +119,7 @@ const Deposits = () => {
       if (result.isConfirmed) {
         try {
           const response = await axios.delete(
-            `http://localhost:5000/api/v1/deposit/${id}`,
+            `https://topup-app-server.vercel.app/api/v1/deposit/${id}`,
             {
               headers: {
                 Authorization: token,

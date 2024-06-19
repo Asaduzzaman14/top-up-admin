@@ -25,12 +25,15 @@ const Payment = () => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/v1/payment', {
-        headers: {
-          Authorization: `${token}`,
-          'Content-Type': 'application/json',
+      const response = await axios.get(
+        'https://topup-app-server.vercel.app/api/v1/payment',
+        {
+          headers: {
+            Authorization: `${token}`,
+            'Content-Type': 'application/json',
+          },
         },
-      });
+      );
       if (response?.data?.success) {
         setDatas(response?.data?.data);
       }

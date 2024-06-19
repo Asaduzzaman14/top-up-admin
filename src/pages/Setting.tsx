@@ -19,12 +19,23 @@ const Setting = () => {
     formState: { errors },
     handleSubmit,
   } = useForm<INotice>();
+  const [isChecked, setIsChecked] = useState<any>();
+
+  const handleCheckboxChange = (event: any) => {
+    setIsChecked(event.target.checked);
+    console.log(event.target.checked);
+  };
+  useEffect(() => {
+    if (stakeLevelBonus?.length) {
+      setIsChecked(stakeLevelBonus[0].status == 'active' ? true : false);
+    }
+  }, [stakeLevelBonus]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          'http://localhost:5000/api/v1/notice',
+          'https://topup-app-server.vercel.app/api/v1/notice/admin',
           {
             headers: {
               Authorization: `${token}`,
@@ -47,21 +58,17 @@ const Setting = () => {
   }, [token]);
 
   const onSubmit = async (data: any) => {
-    console.log(data);
-
-    if (Object.keys(data).length === 0) {
-      console.log('empty');
-      alert('there are no changes');
-      return;
+    if (data.notice == ' ') {
+      data.notice = stakeLevelBonus![0]?.notice;
     }
-    // return;
     if (!stakeLevelBonus || !stakeLevelBonus[0]._id) {
       return;
     }
-    console.log(data);
+    data.status = isChecked == true ? 'active' : 'inactive';
+
     try {
       const response = await fetch(
-        `http://localhost:5000/api/v1/notice/${stakeLevelBonus[0]._id}`,
+        `https://topup-app-server.vercel.app/api/v1/notice/${stakeLevelBonus[0]._id}`,
         {
           method: 'PATCH',
           headers: {
@@ -107,11 +114,23 @@ const Setting = () => {
         </h2>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="w-full xl:w-1/2">
-            <label className="mt-2.5 mb-0.5 block text-black dark:text-white">
-              Notice
-            </label>
+            <div className="flex gap-4 place-items-center">
+              <label className="mt-2.5  block text-black dark:text-white">
+                Notice
+              </label>
+              <div>
+                <label className="switch">
+                  <input
+                    type="checkbox"
+                    checked={isChecked}
+                    onChange={handleCheckboxChange}
+                  />
+                  <span className="slider round"></span>
+                </label>
+              </div>
+            </div>
             <textarea
-              {...register('notice')}
+              {...register('notice', { required: true })}
               placeholder="Notice"
               className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
               defaultValue={stakeLevelBonus && stakeLevelBonus[0]?.notice}
@@ -121,7 +140,7 @@ const Setting = () => {
           {loading ? (
             <p>loading... </p>
           ) : (
-            <Button cs="px-10 my-5 bg-primary" btnName="Update"></Button>
+            <Button cs="px-10 my-5 bg-primary" btnName="Submit"></Button>
           )}
         </form>
       </div>{' '}

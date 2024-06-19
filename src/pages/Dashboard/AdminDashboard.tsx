@@ -22,7 +22,7 @@ const AdminDashboard: React.FC = () => {
     setLoading(true);
     try {
       const response = await axios.get(
-        'http://localhost:5000/api/v1/categorys/admin',
+        'https://topup-app-server.vercel.app/api/v1/categorys/admin',
         {
           headers: {
             Authorization: `${token}`,
@@ -55,7 +55,7 @@ const AdminDashboard: React.FC = () => {
     setLoading(true);
     try {
       const response = await axios.get(
-        'http://localhost:5000/api/v1/products',
+        'https://topup-app-server.vercel.app/api/v1/products',
         {
           headers: {
             Authorization: `${token}`,
@@ -89,7 +89,7 @@ const AdminDashboard: React.FC = () => {
     setLoading(true);
     try {
       const response = await axios.get(
-        'http://localhost:5000/api/v1/user/admin',
+        'https://topup-app-server.vercel.app/api/v1/user/admin',
         {
           headers: {
             Authorization: `${token}`,
@@ -123,7 +123,7 @@ const AdminDashboard: React.FC = () => {
   const fetchOrderData = async () => {
     try {
       const response = await axios.get(
-        'http://localhost:5000/api/v1/orders/admin',
+        'https://topup-app-server.vercel.app/api/v1/orders/admin',
         {
           headers: {
             Authorization: `${token}`,
@@ -145,7 +145,9 @@ const AdminDashboard: React.FC = () => {
 
   let totalSell = 0;
   for (let index = 0; index < orders.length; index++) {
-    totalSell += Number(orders[index].price);
+    if (orders[index].status == 'complete') {
+      totalSell += Number(orders[index].price);
+    }
   }
 
   let balance = 0;

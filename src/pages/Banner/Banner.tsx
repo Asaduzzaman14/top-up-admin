@@ -37,12 +37,15 @@ const Banner = () => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/v1/banners', {
-        headers: {
-          Authorization: `${token}`,
-          'Content-Type': 'application/json',
+      const response = await axios.get(
+        'https://topup-app-server.vercel.app/api/v1/banners',
+        {
+          headers: {
+            Authorization: `${token}`,
+            'Content-Type': 'application/json',
+          },
         },
-      });
+      );
 
       if (response?.data?.success) {
         setDatas(response?.data?.data);
@@ -69,7 +72,7 @@ const Banner = () => {
       if (result.isConfirmed) {
         try {
           const response = await axios.delete(
-            `http://localhost:5000/api/v1/banners/${id}`,
+            `https://topup-app-server.vercel.app/api/v1/banners/${id}`,
             {
               headers: {
                 Authorization: token,
