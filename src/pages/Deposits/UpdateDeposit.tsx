@@ -24,7 +24,7 @@ export const UpdateDeposti = ({ fetchData, closeModal, updateItem }: any) => {
 
     try {
       const response = await fetch(
-        `https://topup-app-server.vercel.app/api/v1/deposit/${updateItem?._id}`,
+        `https://ajgameshop.xyz/api/v1/deposit/${updateItem?._id}`,
         {
           method: 'PATCH',
           headers: {

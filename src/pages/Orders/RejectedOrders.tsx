@@ -40,7 +40,7 @@ const RejectedOrders = () => {
     setLoading(true);
     try {
       const response = await axios.get(
-        'https://topup-app-server.vercel.app/api/v1/orders/admin',
+        'https://ajgameshop.xyz/api/v1/orders/admin',
         {
           headers: {
             Authorization: `${token}`,
@@ -75,7 +75,7 @@ const RejectedOrders = () => {
       if (result.isConfirmed) {
         try {
           const response = await axios.delete(
-            `https://topup-app-server.vercel.app/api/v1/orders/${id}`,
+            `https://ajgameshop.xyz/api/v1/orders/${id}`,
             {
               headers: {
                 Authorization: token,

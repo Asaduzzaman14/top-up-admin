@@ -37,7 +37,7 @@ const ManualPayment = () => {
     setLoading(true);
     try {
       const response = await axios.get(
-        'https://topup-app-server.vercel.app/api/v1/manually-payment/admin-payment',
+        'https://ajgameshop.xyz/api/v1/manually-payment/admin-payment',
         {
           headers: {
             Authorization: `${token}`,
@@ -73,7 +73,7 @@ const ManualPayment = () => {
         try {
           setDeleteLoading(true);
           const response = await axios.delete(
-            `https://topup-app-server.vercel.app/api/v1/manually-payment/${id}`,
+            `https://ajgameshop.xyz/api/v1/manually-payment/${id}`,
             {
               headers: {
                 Authorization: token,

@@ -38,7 +38,7 @@ const Catagory = () => {
     setLoading(true);
     try {
       const response = await axios.get(
-        'https://topup-app-server.vercel.app/api/v1/categorys/admin',
+        'https://ajgameshop.xyz/api/v1/categorys/admin',
         {
           headers: {
             Authorization: `${token}`,
@@ -74,7 +74,7 @@ const Catagory = () => {
         try {
           setDeleteLoading(true);
           const response = await axios.delete(
-            `https://topup-app-server.vercel.app/api/v1/categorys/${id}`,
+            `https://ajgameshop.xyz/api/v1/categorys/${id}`,
             {
               headers: {
                 Authorization: token,

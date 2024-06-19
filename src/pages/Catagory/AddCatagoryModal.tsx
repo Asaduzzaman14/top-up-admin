@@ -26,17 +26,14 @@ export const AddCatagoryModal = ({ fetchData, closeModal }: IUpdatePackage) => {
       const token = getTopUpToken();
       console.log(token);
 
-      const response = await fetch(
-        `https://topup-app-server.vercel.app/api/v1/categorys`,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `${token}`,
-          },
-          body: JSON.stringify(data),
+      const response = await fetch(`https://ajgameshop.xyz/api/v1/categorys`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `${token}`,
         },
-      );
+        body: JSON.stringify(data),
+      });
       console.log(response);
 
       if (!response.ok) {

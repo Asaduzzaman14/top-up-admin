@@ -43,7 +43,7 @@ const Profile = () => {
   const fetchData = async () => {
     try {
       const response = await axios.get<ApiResponse>(
-        'https://topup-app-server.vercel.app/api/v1/user',
+        'https://ajgameshop.xyz/api/v1/user',
         {
           headers: {
             Authorization: `${token}`,

@@ -12,7 +12,7 @@ const MyTeam = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          ' https://topup-app-server.vercel.app/api/v1/services-catagory',
+          ' https://ajgameshop.xyz/api/v1/services-catagory',
           {
             headers: {
               Authorization: ` `,

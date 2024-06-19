@@ -21,7 +21,7 @@ const Allusers = () => {
     setLoading(true);
     try {
       const response = await axios.get(
-        'https://topup-app-server.vercel.app/api/v1/user/admin',
+        'https://ajgameshop.xyz/api/v1/user/admin',
         {
           headers: {
             Authorization: `${token}`,

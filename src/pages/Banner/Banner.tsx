@@ -38,7 +38,7 @@ const Banner = () => {
   const fetchData = async () => {
     try {
       const response = await axios.get(
-        'https://topup-app-server.vercel.app/api/v1/banners',
+        'https://ajgameshop.xyz/api/v1/banners',
         {
           headers: {
             Authorization: `${token}`,
@@ -72,7 +72,7 @@ const Banner = () => {
       if (result.isConfirmed) {
         try {
           const response = await axios.delete(
-            `https://topup-app-server.vercel.app/api/v1/banners/${id}`,
+            `https://ajgameshop.xyz/api/v1/banners/${id}`,
             {
               headers: {
                 Authorization: token,

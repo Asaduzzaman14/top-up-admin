@@ -34,7 +34,7 @@ const BasicDetails = ({ profile, fetchData }: any) => {
     const newData = { ...data, id: bonusData[0]?.id };
     try {
       const response = await fetch(
-        `https://topup-app-server.vercel.app/api/v1/user/${profile?._id}`,
+        `https://ajgameshop.xyz/api/v1/user/${profile?._id}`,
         {
           method: 'PATCH',
           headers: {

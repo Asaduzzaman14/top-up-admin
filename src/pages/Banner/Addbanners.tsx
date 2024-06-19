@@ -15,17 +15,14 @@ const Addbanners = ({ fetchData, closeModal }: any) => {
     setLoading(true);
 
     try {
-      const response = await fetch(
-        `https://topup-app-server.vercel.app/api/v1/banners`,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `${token}`,
-          },
-          body: JSON.stringify(data),
+      const response = await fetch(`https://ajgameshop.xyz/api/v1/banners`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `${token}`,
         },
-      );
+        body: JSON.stringify(data),
+      });
 
       const responseData = await response.json();
 

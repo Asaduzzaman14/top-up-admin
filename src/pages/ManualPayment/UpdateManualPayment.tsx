@@ -28,7 +28,7 @@ const UpdateManualPayment = ({ fetchData, closeModal, updateItem }: any) => {
       const token = getTopUpToken();
 
       const response = await fetch(
-        `https://topup-app-server.vercel.app/api/v1/manually-payment/${updateItem._id}`,
+        `https://ajgameshop.xyz/api/v1/manually-payment/${updateItem._id}`,
         {
           method: 'PATCH',
           headers: {
