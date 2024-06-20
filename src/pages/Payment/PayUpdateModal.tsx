@@ -35,7 +35,7 @@ export const PayUpdateModal = ({ fetchData, closeModal, updateItem }: any) => {
       const token = getTopUpToken();
 
       const response = await fetch(
-        `https://ajgameshop.xyz/api/v1/payment/${updateItem._id}`,
+        `https://api.ajgameshop.xyz/api/v1/payment/${updateItem._id}`,
         {
           method: 'PATCH',
           headers: {

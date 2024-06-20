@@ -40,7 +40,7 @@ const PendingOrders = () => {
     setLoading(true);
     try {
       const response = await axios.get(
-        'https://ajgameshop.xyz/api/v1/orders/admin',
+        'https://api.ajgameshop.xyz/api/v1/orders/admin',
         {
           headers: {
             Authorization: `${token}`,
@@ -74,7 +74,7 @@ const PendingOrders = () => {
       if (result.isConfirmed) {
         try {
           const response = await axios.delete(
-            `https://ajgameshop.xyz/api/v1/orders/${id}`,
+            `https://api.ajgameshop.xyz/api/v1/orders/${id}`,
             {
               headers: {
                 Authorization: token,

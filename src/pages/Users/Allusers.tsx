@@ -21,7 +21,7 @@ const Allusers = () => {
     setLoading(true);
     try {
       const response = await axios.get(
-        'https://ajgameshop.xyz/api/v1/user/admin',
+        'https://api.ajgameshop.xyz/api/v1/user/admin',
         {
           headers: {
             Authorization: `${token}`,

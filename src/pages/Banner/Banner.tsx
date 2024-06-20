@@ -38,7 +38,7 @@ const Banner = () => {
   const fetchData = async () => {
     try {
       const response = await axios.get(
-        'https://ajgameshop.xyz/api/v1/banners',
+        'https://api.ajgameshop.xyz/api/v1/banners',
         {
           headers: {
             Authorization: `${token}`,
@@ -72,7 +72,7 @@ const Banner = () => {
       if (result.isConfirmed) {
         try {
           const response = await axios.delete(
-            `https://ajgameshop.xyz/api/v1/banners/${id}`,
+            `https://api.ajgameshop.xyz/api/v1/banners/${id}`,
             {
               headers: {
                 Authorization: token,

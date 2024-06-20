@@ -26,14 +26,17 @@ export const AddCatagoryModal = ({ fetchData, closeModal }: IUpdatePackage) => {
       const token = getTopUpToken();
       console.log(token);
 
-      const response = await fetch(`https://ajgameshop.xyz/api/v1/categorys`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `${token}`,
+      const response = await fetch(
+        `https://api.ajgameshop.xyz/api/v1/categorys`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `${token}`,
+          },
+          body: JSON.stringify(data),
         },
-        body: JSON.stringify(data),
-      });
+      );
       console.log(response);
 
       if (!response.ok) {

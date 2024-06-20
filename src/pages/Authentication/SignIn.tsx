@@ -32,7 +32,7 @@ const SignIn: React.FC = () => {
     setLoading(true);
     try {
       const response = await fetch(
-        'https://ajgameshop.xyz/api/v1/auth/admin/login',
+        'https://api.ajgameshop.xyz/api/v1/auth/admin/login',
         {
           method: 'POST',
           headers: {

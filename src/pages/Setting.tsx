@@ -35,7 +35,7 @@ const Setting = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          'https://ajgameshop.xyz/api/v1/notice/admin',
+          'https://api.ajgameshop.xyz/api/v1/notice/admin',
           {
             headers: {
               Authorization: `${token}`,
@@ -68,7 +68,7 @@ const Setting = () => {
 
     try {
       const response = await fetch(
-        `https://ajgameshop.xyz/api/v1/notice/${stakeLevelBonus[0]._id}`,
+        `https://api.ajgameshop.xyz/api/v1/notice/${stakeLevelBonus[0]._id}`,
         {
           method: 'PATCH',
           headers: {

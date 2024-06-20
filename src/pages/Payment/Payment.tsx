@@ -26,7 +26,7 @@ const Payment = () => {
   const fetchData = async () => {
     try {
       const response = await axios.get(
-        'https://ajgameshop.xyz/api/v1/payment',
+        'https://api.ajgameshop.xyz/api/v1/payment',
         {
           headers: {
             Authorization: `${token}`,

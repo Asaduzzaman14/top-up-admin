@@ -36,7 +36,7 @@ export const UpdateProductsModal = ({
     setLoading(true);
     try {
       const response = await fetch(
-        `https://ajgameshop.xyz/api/v1/products/${updateItem?._id}`,
+        `https://api.ajgameshop.xyz/api/v1/products/${updateItem?._id}`,
         {
           method: 'PATCH',
           headers: {

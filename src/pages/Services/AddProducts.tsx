@@ -29,7 +29,7 @@ const AddProducts = () => {
 
     try {
       const response = await axios.get(
-        'https://ajgameshop.xyz/api/v1/categorys/admin',
+        'https://api.ajgameshop.xyz/api/v1/categorys/admin',
         {
           headers: {
             Authorization: `${token}`,
@@ -52,14 +52,17 @@ const AddProducts = () => {
     const token = getTopUpToken();
 
     try {
-      const response = await fetch('https://ajgameshop.xyz/api/v1/products', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `${token}`,
+      const response = await fetch(
+        'https://api.ajgameshop.xyz/api/v1/products',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `${token}`,
+          },
+          body: JSON.stringify(formData),
         },
-        body: JSON.stringify(formData),
-      });
+      );
 
       if (!response.ok) {
         throw new Error('Network response was not ok');
@@ -86,7 +89,7 @@ const AddProducts = () => {
     setLoading(true);
     try {
       const response = await axios.get(
-        'https://ajgameshop.xyz/api/v1/categorys/admin',
+        'https://api.ajgameshop.xyz/api/v1/categorys/admin',
         {
           headers: {
             Authorization: `${token}`,

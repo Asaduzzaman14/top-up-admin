@@ -38,7 +38,7 @@ export const UpdateCatagoryModal = ({
       const token = getTopUpToken();
 
       const response = await fetch(
-        `https://ajgameshop.xyz/api/v1/categorys/${updateItem._id}`,
+        `https://api.ajgameshop.xyz/api/v1/categorys/${updateItem._id}`,
         {
           method: 'PATCH',
           headers: {

@@ -43,7 +43,7 @@ const Products = () => {
     setLoading(true);
     try {
       const response = await axios.get(
-        'https://ajgameshop.xyz/api/v1/products',
+        'https://api.ajgameshop.xyz/api/v1/products',
         {
           headers: {
             Authorization: `${token}`,
@@ -79,7 +79,7 @@ const Products = () => {
       if (result.isConfirmed) {
         try {
           const response = await axios.delete(
-            `https://ajgameshop.xyz/api/v1/products/${id}`,
+            `https://api.ajgameshop.xyz/api/v1/products/${id}`,
             {
               headers: {
                 Authorization: token,

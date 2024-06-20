@@ -19,7 +19,7 @@ const BannerUpdate = ({ fetchData, closeModal, updateItem }: any) => {
     setLoading(true);
     try {
       const response = await fetch(
-        `https://ajgameshop.xyz/api/v1/banners/${updateItem?._id}`,
+        `https://api.ajgameshop.xyz/api/v1/banners/${updateItem?._id}`,
         {
           method: 'PATCH',
           headers: {

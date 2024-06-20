@@ -18,7 +18,7 @@ export const AddPaymentModal = ({ fetchData, closeModal }: any) => {
       console.log(token);
 
       const response = await fetch(
-        `https://ajgameshop.xyz/api/v1/manually-payment`,
+        `https://api.ajgameshop.xyz/api/v1/manually-payment`,
         {
           method: 'POST',
           headers: {

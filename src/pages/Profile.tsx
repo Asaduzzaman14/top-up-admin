@@ -43,7 +43,7 @@ const Profile = () => {
   const fetchData = async () => {
     try {
       const response = await axios.get<ApiResponse>(
-        'https://ajgameshop.xyz/api/v1/user',
+        'https://api.ajgameshop.xyz/api/v1/user',
         {
           headers: {
             Authorization: `${token}`,

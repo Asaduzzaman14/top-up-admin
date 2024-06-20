@@ -12,7 +12,7 @@ const MyTeam = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          ' https://ajgameshop.xyz/api/v1/services-catagory',
+          ' https://api.ajgameshop.xyz/api/v1/services-catagory',
           {
             headers: {
               Authorization: ` `,
