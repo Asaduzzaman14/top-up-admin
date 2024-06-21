@@ -125,9 +125,9 @@ const PendingOrders = () => {
                 <th className="min-w-[90px] py-4 px-4 font-medium text-black dark:text-white">
                   SL NO
                 </th>
-                <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
+                {/* <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
                   Image
-                </th>
+                </th> */}
 
                 <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
                   Product Name
@@ -166,9 +166,9 @@ const PendingOrders = () => {
                     </h5>
                   </td>
 
-                  <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                  {/* <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                     <img className="w-20 h-20" src={order?.img} alt="" />
-                  </td>
+                  </td> */}
                   <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                     <p className="text-black dark:text-white">
                       {order?.productName}
