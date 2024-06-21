@@ -26,6 +26,7 @@ import TermsAndCondition from './pages/TermsAndCondition';
 import PrivacyAndPolicy from './pages/PrivacyAndPolicy';
 import Setting from './pages/Setting';
 import CompleteOrder from './pages/Orders/CompleteOrder';
+import ProtectedRoute from './hooks/ProtectedRoute';
 
 function App() {
   const { pathname } = useLocation();
@@ -58,7 +59,9 @@ function App() {
             element={
               <>
                 <PageTitle title="Top up" />
-                <AdminDashboard />
+                <ProtectedRoute>
+                  <AdminDashboard />
+                </ProtectedRoute>
               </>
             }
           />
@@ -68,7 +71,9 @@ function App() {
             element={
               <>
                 <PageTitle title="Catagory" />
-                <Catagory />
+                <ProtectedRoute>
+                  <Catagory />
+                </ProtectedRoute>
               </>
             }
           />
@@ -78,7 +83,9 @@ function App() {
             element={
               <>
                 <PageTitle title="All Product" />
-                <Products />
+                <ProtectedRoute>
+                  <Products />
+                </ProtectedRoute>
               </>
             }
           />
@@ -88,7 +95,9 @@ function App() {
             element={
               <>
                 <PageTitle title="services" />
-                <AddServices />
+                <ProtectedRoute>
+                  <AddServices />
+                </ProtectedRoute>
               </>
             }
           />
@@ -98,7 +107,9 @@ function App() {
             element={
               <>
                 <PageTitle title="All Users" />
-                <Allusers />
+                <ProtectedRoute>
+                  <Allusers />
+                </ProtectedRoute>
               </>
             }
           />
@@ -108,7 +119,9 @@ function App() {
             element={
               <>
                 <PageTitle title="All Orders" />
-                <Orders />
+                <ProtectedRoute>
+                  <Orders />
+                </ProtectedRoute>
               </>
             }
           />
@@ -118,7 +131,9 @@ function App() {
             element={
               <>
                 <PageTitle title="Pending Orders" />
-                <PendingOrders />
+                <ProtectedRoute>
+                  <PendingOrders />
+                </ProtectedRoute>
               </>
             }
           />
@@ -127,7 +142,9 @@ function App() {
             element={
               <>
                 <PageTitle title="Complete Orders" />
-                <CompleteOrder />
+                <ProtectedRoute>
+                  <CompleteOrder />
+                </ProtectedRoute>
               </>
             }
           />
@@ -137,7 +154,9 @@ function App() {
             element={
               <>
                 <PageTitle title="Rejected Orders" />
-                <RejectedOrders />
+                <ProtectedRoute>
+                  <RejectedOrders />
+                </ProtectedRoute>
               </>
             }
           />
@@ -147,7 +166,9 @@ function App() {
             element={
               <>
                 <PageTitle title="All Deposits" />
-                <Deposits />
+                <ProtectedRoute>
+                  <Deposits />
+                </ProtectedRoute>
               </>
             }
           />
@@ -157,7 +178,9 @@ function App() {
             element={
               <>
                 <PageTitle title="Payment" />
-                <Payment />
+                <ProtectedRoute>
+                  <Payment />
+                </ProtectedRoute>
               </>
             }
           />
@@ -167,7 +190,9 @@ function App() {
             element={
               <>
                 <PageTitle title="Manual Payment" />
-                <ManualPayment />
+                <ProtectedRoute>
+                  <ManualPayment />
+                </ProtectedRoute>
               </>
             }
           />
@@ -177,7 +202,9 @@ function App() {
             element={
               <>
                 <PageTitle title="Banner" />
-                <Banner />
+                <ProtectedRoute>
+                  <Banner />
+                </ProtectedRoute>
               </>
             }
           />
@@ -187,7 +214,9 @@ function App() {
               <>
                 <PageTitle title="Profile" />
                 <Suspense fallback={<Lazyloding />}>
-                  <Profile />
+                  <ProtectedRoute>
+                    <Profile />
+                  </ProtectedRoute>
                 </Suspense>
               </>
             }
@@ -198,7 +227,9 @@ function App() {
             element={
               <>
                 <PageTitle title="setting" />
-                <Setting />
+                <ProtectedRoute>
+                  <Setting />
+                </ProtectedRoute>
               </>
             }
           />
