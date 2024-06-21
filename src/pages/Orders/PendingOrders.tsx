@@ -140,6 +140,9 @@ const PendingOrders = () => {
                 <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
                   User name
                 </th>
+                <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
+                  PlayerId
+                </th>
 
                 <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
                   Data
@@ -184,7 +187,11 @@ const PendingOrders = () => {
                     </p>
                     <span> {order?.userId.name}</span>
                   </td>
-
+                  <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                    <p className="text-black dark:text-white">
+                      {order?.playerId}
+                    </p>
+                  </td>
                   <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                     <p className="text-black uppercase dark:text-white">
                       {formatToLocalDate(order?.createdAt)}

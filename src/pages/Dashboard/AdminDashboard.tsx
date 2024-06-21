@@ -184,7 +184,7 @@ const AdminDashboard: React.FC = () => {
           </CardDataStats>
         </Link>
 
-        <Link to={'/all-orders'}>
+        <Link to={'/order/all-orders'}>
           <CardDataStats
             title="All Orders"
             total={`${orders ? orders?.length : '00'}`}
@@ -193,23 +193,23 @@ const AdminDashboard: React.FC = () => {
           </CardDataStats>
         </Link>
 
-        <Link to={'/all-orders'}>
+        <div>
           <CardDataStats
             title="Total Sell"
             total={`${orders ? totalSell : '00'}`}
           >
             <UserIcon />
           </CardDataStats>
-        </Link>
+        </div>
 
-        <Link to={'/all-orders'}>
+        <div>
           <CardDataStats
             title="All users wallet"
             total={`${users ? balance : '00'}`}
           >
             <UserIcon />
           </CardDataStats>
-        </Link>
+        </div>
       </div>
 
       <div className="mt-5">
