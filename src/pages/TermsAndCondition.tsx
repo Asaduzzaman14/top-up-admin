@@ -2,13 +2,13 @@ const TermsAndCondition = () => {
   return (
     <div>
       <div className="px-4 lg:px-10 md:pr-10 text-black mb-3">
-        <h2 className="text-xl font-semibold mt-3">Terms-and-condition</h2>
+        <h2 className="text-2xl font-semibold mt-3">Terms-and-condition</h2>
         <div>
           <p className="mt-2  font-normal">
             Welcome to Aj gameshop. Please read these Terms and Conditions
-            ("Terms") carefully before using our game credits selling app. By
-            downloading, accessing, or using our app, you agree to be bound by
-            these Terms. If you do not agree to these Terms, do not use our app.
+            carefully before using our game credits selling app. By downloading,
+            accessing, or using our app, you agree to be bound by these Terms.
+            If you do not agree to these Terms, do not use our app.
           </p>
           <h2 className="text-xl font-semibold mt-3">1. Acceptance of Terms</h2>
           <p className="mt-2  font-norma">
@@ -56,7 +56,7 @@ const TermsAndCondition = () => {
           <p className="mt-2  font-normal">
             All content, trademarks, and data on the app, including but not
             limited to software, text, graphics, logos, and images, are the
-            property of [App Name] or its licensors and are protected by
+            property of ajgameshop or its licensors and are protected by
             intellectual property laws.
           </p>
           <h2 className="text-xl font-semibold mt-3">8. Privacy </h2>
@@ -89,11 +89,14 @@ const TermsAndCondition = () => {
           <h2 className="text-xl font-semibold mt-3">12. Contact Us</h2>
           <p className="mt-2  font-norma">
             If you have any questions about these Terms, please contact us at
-            <span className="font-semibold ">contact.ajgameshop@gmail.com</span>
+            <span className="font-semibold ">
+              {' '}
+              contact.ajgameshop@gmail.com
+            </span>
           </p>
           <p className="mt-2  font-normal">
-            By using Aj gameshop, you agree to these Terms and Conditions. Thank
-            you for choosing our app!
+            By using Aj gameshop, <br /> you agree to these Terms and
+            Conditions. <br /> Thank you for choosing our app!
           </p>
         </div>
       </div>
